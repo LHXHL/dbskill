@@ -4,7 +4,7 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.11-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.12-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
@@ -12,7 +12,7 @@
 
 dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 29 个可直接调用的 Skills。
 
-**v2.18.11 更新：** 重新设计 README 的单步路由图与知识来源图，统一为横版 4:3、蓝灰配色和同一套字体、圆角与线条规范；知识来源图同步更新为 16,152 条公开推文、4,176 个知识原子、29 个正式业务 Skill 和 1 个系统更新入口。
+**v2.18.12 更新：** 重写 `/dbs-goal` 的目标审计流程。新版会先提取用户已经提供的交付物、范围和验收条件；明确任务直接放行，存在阻塞性缺口时只追问 1 个会改变执行或验收的问题；语义做工测试取代机械删词测试。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新日志](https://github.com/dontbesilent2025/dbskill/releases)
 
