@@ -67,7 +67,7 @@ dbskill 은 [dontbesilent](https://x.com/dontbesilent)가 만들었습니다. �
 
 ## 설치
 
-### 豆包, WorkBuddy, Codex 및 Skills 지원 Agent
+### 권장: Claude Code, 豆包, WorkBuddy, Codex 및 Skills 지원 Agent
 
 터미널에서 실행합니다.
 
@@ -79,10 +79,16 @@ Agent 로 돌아가 `/dbs 新手入门` 을 입력해 시작하세요.
 
 ### Claude Code 마켓플레이스
 
+Claude Code 마켓플레이스를 통해 전체 도구 모음을 설치할 수도 있습니다.
+
 ```bash
 claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
+
+`dbs` 플러그인에는 정식 비즈니스 Skill 29개와 `dbs-update` 시스템 항목 1개가 포함됩니다. Claude Code는 플러그인 Skill에 네임스페이스를 추가합니다. 메인 라우터는 `/dbs:dbs`, 개별 기능은 `/dbs:dbs-diagnosis`와 같은 명령을 사용합니다.
+
+기능 하나만 설치하려면 해당 마켓플레이스 플러그인을 선택하세요. 예: `claude plugin install dbs-diagnosis@dontbesilent-skills`
 
 ![Claude Code 설치 데모](demo.gif)
 

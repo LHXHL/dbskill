@@ -68,7 +68,7 @@ See the [full guide and Skill directory](docs/新手入门.md#skill-全目录) f
 
 ## Install
 
-### Doubao, WorkBuddy, Codex, and other Agents supporting Skills
+### Recommended: Claude Code, Doubao, WorkBuddy, Codex, and other Agents supporting Skills
 
 Run in a terminal:
 
@@ -80,10 +80,16 @@ Return to your Agent and enter `/dbs 新手入门` to begin.
 
 ### Claude Code marketplace
 
+You can also install the complete toolkit through the Claude Code marketplace:
+
 ```bash
 claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
+
+The `dbs` plugin includes all 29 public business Skills plus the `dbs-update` system entry. Claude Code namespaces plugin Skills: use `/dbs:dbs` for the main router and commands such as `/dbs:dbs-diagnosis` for a specific capability.
+
+To install only one capability, choose its marketplace plugin, for example `claude plugin install dbs-diagnosis@dontbesilent-skills`.
 
 ![Claude Code installation demo](demo.gif)
 

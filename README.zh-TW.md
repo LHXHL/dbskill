@@ -63,11 +63,11 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 建立。它從 16,152 �
 | 把本機資料夾變成知識庫 | `/dbs-knowledge` | 知識庫導航、版本規則與可直接使用的提問入口 |
 | 審查本機 Skill 風險 | `/dbs-skill-cleaner` | 風險報告與確認後隔離 |
 
-完整的 28 個 Skill、適用時機、輸入範例與常見銜接方式，見[新手入門與 Skill 全目錄](docs/新手入门.md#skill-全目录)。
+完整的 29 個 Skill、適用時機、輸入範例與動態導覽方式，見[新手入門與 Skill 全目錄](docs/新手入门.md#skill-全目录)。
 
 ## 安裝
 
-### 豆包、WorkBuddy、Codex 與其他支援 Skills 的 Agent
+### 推薦：Claude Code、豆包、WorkBuddy、Codex 與其他支援 Skills 的 Agent
 
 在終端機執行：
 
@@ -79,10 +79,16 @@ npx -y skills add dontbesilent2025/dbskill -g --all
 
 ### Claude Code 外掛市集
 
+也可以透過 Claude Code 外掛市集安裝完整工具箱：
+
 ```bash
 claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
+
+這個 `dbs` 外掛包含 29 個正式業務 Skill 和 1 個 `dbs-update` 系統更新入口。Claude Code 會為外掛 Skill 加上命名空間：主入口使用 `/dbs:dbs`，具體能力例如 `/dbs:dbs-diagnosis`。
+
+只想安裝一個能力時，可以在外掛市集中選擇對應外掛，例如 `claude plugin install dbs-diagnosis@dontbesilent-skills`。
 
 ![Claude Code 外掛安裝示範](demo.gif)
 
