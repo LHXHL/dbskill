@@ -29,6 +29,7 @@ jobs:
           python3 tools/check-release-versions.py
           python3 tools/check-plugin-update-contract.py --release
           python3 tools/check-skill-routing-contract.py
+          python3 tools/check-skill-metadata.py
 
       - name: Build skill bundle
         run: bash tools/build-skills.sh
