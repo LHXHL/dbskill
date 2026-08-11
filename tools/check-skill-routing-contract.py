@@ -12,9 +12,8 @@ MARKETPLACE_PATH = ROOT_DIR / ".claude-plugin" / "marketplace.json"
 DBS_SKILL_PATH = ROOT_DIR / "skills" / "dbs" / "SKILL.md"
 
 ROUTING_CONTRACT_MARKER = "### 跨 Skill 交接契约"
-CANONICAL_FOOTER_MARKER = (
-    "这是商业工具箱的导航入口。"
-    "它会读取刚才的具体结论和你的最新目标"
+CONDITIONAL_NAVIGATION_MARKER = (
+    "只有用户明确询问下一步，且当前环境已经安装 `/dbs` 时"
 )
 
 DIRECT_HANDOFF_PATTERNS = (
@@ -40,8 +39,8 @@ def main() -> None:
             continue
 
         text = skill_path.read_text(encoding="utf-8")
-        if name != "dbs" and CANONICAL_FOOTER_MARKER not in text:
-            errors.append(f"skills/{name}/SKILL.md 缺少统一 /dbs 导航收尾")
+        if name != "dbs" and CONDITIONAL_NAVIGATION_MARKER not in text:
+            errors.append(f"skills/{name}/SKILL.md 缺少条件式 /dbs 导航规则")
 
         if name == "dbs":
             continue
@@ -71,15 +70,16 @@ def main() -> None:
     guide_text = (ROOT_DIR / "docs" / "新手入门.md").read_text(encoding="utf-8")
     if "**常见衔接：**" in guide_text:
         errors.append("docs/新手入门.md 仍含直接指定下一站的「常见衔接」")
-    guide_navigation_count = guide_text.count(
-        "**继续推进：** 完成本 Skill 后输入 `/dbs`。"
-    )
-    expected_guide_navigation_count = len(formal_names) - 1
-    if guide_navigation_count != expected_guide_navigation_count:
+    repeated_guide_navigation = "**继续推进：** 完成本 Skill 后输入 `/dbs`。"
+    if repeated_guide_navigation in guide_text:
         errors.append(
-            "docs/新手入门.md 的统一动态导航条目为 "
-            f"{guide_navigation_count}，应为 {expected_guide_navigation_count}"
+            "docs/新手入门.md 仍在每个 Skill 条目后重复动态导航提示"
         )
+    shared_guide_navigation = (
+        "完成任何 Skill 后，可以继续补充事实或直接说明下一步。"
+    )
+    if guide_text.count(shared_guide_navigation) != 1:
+        errors.append("docs/新手入门.md 应且只能保留 1 处统一动态导航说明")
 
     readme_text = (ROOT_DIR / "README.md").read_text(encoding="utf-8")
     if "常见衔接方式" in readme_text:
@@ -115,7 +115,7 @@ def main() -> None:
     print(
         "Skill 路由契约校验通过："
         f"{len(formal_names)} 个正式 Skill，"
-        f"{leaf_count} 个叶子 Skill 已统一交回 /dbs"
+        f"{leaf_count} 个叶子 Skill 已使用条件式 /dbs 导航"
     )
 
 
