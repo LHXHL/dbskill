@@ -4,7 +4,7 @@
 
 > 창업가와 콘텐츠 제작자를 위한 중국어 AI Skills 도구 상자입니다. 실제 비즈니스, 콘텐츠, 실행 문제를 Agent 에게 전달하면 명확한 판단과 바로 시작할 수 있는 다음 행동을 얻을 수 있습니다.
 
-[![Version](https://img.shields.io/badge/version-2.18.18-111111.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.19-111111.svg)](VERSION)
 [![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
@@ -125,25 +125,6 @@ claude plugin install dbs@dontbesilent-skills
 - 대화를 이어서 작업하려면 `/dbs-save`, `/dbs-restore`, `/dbs-report` 를 사용하세요. 데이터는 `~/.dbs/` 에 로컬로 저장됩니다.
 
 ![dbskill 지식 파이프라인](docs/knowledge-pipeline.svg)
-
-## 프로젝트 구조
-
-```text
-dbskill/
-├── skills/                  # 공개된 30 개 Skills + 1 개 업데이트 항목
-├── 知识库/                   # 지식 원자, 방법론, 용어집
-├── docs/                    # 가이드, 다이어그램, 데모 자료
-├── .claude-plugin/          # Claude Code 마켓플레이스 정의
-└── tools/                   # 빌드와 유지보수 스크립트
-```
-
-로컬 배포 패키지는 다음으로 빌드합니다.
-
-```bash
-bash tools/build-skills.sh
-```
-
-패키지는 `dist/skills/` 에 생성됩니다. 이름에 `beta` 가 포함된 로컬 실험 Skill 은 제외됩니다.
 
 ## 작성자와 지원
 

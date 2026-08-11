@@ -72,7 +72,7 @@ skills/dbs-bridge/scripts/bridge-skill.sh link <skill-name-or-path>
 
 ```bash
 skills/dbs-bridge/scripts/bridge-skill.sh link dbs-hook
-skills/dbs-bridge/scripts/bridge-skill.sh link skills/dbs-beta-framework-builder
+skills/dbs-bridge/scripts/bridge-skill.sh link skills/my-custom-skill
 skills/dbs-bridge/scripts/bridge-skill.sh link skills
 skills/dbs-bridge/scripts/bridge-skill.sh link "/absolute/path/to/skill"
 skills/dbs-bridge/scripts/bridge-skill.sh link "/Users/me/external-skills/my-skill"

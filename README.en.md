@@ -4,7 +4,7 @@
 
 > A Chinese AI Skills toolkit for entrepreneurs and content creators. Give your Agent a real business, content, or execution problem, and get a clear judgment plus the next action you can take.
 
-[![Version](https://img.shields.io/badge/version-2.18.18-111111.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.19-111111.svg)](VERSION)
 [![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
@@ -126,25 +126,6 @@ The repository includes 4,176 structured knowledge atoms, methodology documents 
 - Use `/dbs-save`, `/dbs-restore`, and `/dbs-report` for work across conversations. Data stays locally in `~/.dbs/`.
 
 ![dbskill knowledge pipeline](docs/knowledge-pipeline.svg)
-
-## Project structure
-
-```text
-dbskill/
-├── skills/                  # 30 published Skills + 1 update entry
-├── 知识库/                   # Knowledge atoms, methods, and glossary
-├── docs/                    # Guide, diagrams, and demo assets
-├── .claude-plugin/          # Claude Code marketplace definition
-└── tools/                   # Build and maintenance scripts
-```
-
-Build distribution packages locally:
-
-```bash
-bash tools/build-skills.sh
-```
-
-Packages are created in `dist/skills/`. Local experimental Skills whose names contain `beta` are excluded.
 
 ## Author and support
 

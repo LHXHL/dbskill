@@ -4,7 +4,7 @@
 
 > 給創業者與內容創作者使用的中文 AI Skills 工具箱。把真實的商業、內容與行動問題交給 Agent，取得清晰判斷與可以立即執行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.18-111111.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.19-111111.svg)](VERSION)
 [![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
@@ -125,25 +125,6 @@ claude plugin install dbs@dontbesilent-skills
 - 想跨對話保留工作，使用 `/dbs-save`、`/dbs-restore` 與 `/dbs-report`。資料預設儲存在本機的 `~/.dbs/`。
 
 ![dbskill 知識來源圖](docs/knowledge-pipeline.svg)
-
-## 專案結構
-
-```text
-dbskill/
-├── skills/                  # 30 個正式發布的 Skills + 1 個更新入口
-├── 知识库/                   # 知識原子、方法論文件與概念詞典
-├── docs/                    # 新手入門、圖示與示範素材
-├── .claude-plugin/          # Claude Code 外掛市集定義
-└── tools/                   # 建置與維護腳本
-```
-
-本機建置發布包：
-
-```bash
-bash tools/build-skills.sh
-```
-
-建置產物位於 `dist/skills/`；名稱帶 `beta` 的本機實驗 Skill 不會進入發布包。
 
 ## 作者與支援
 

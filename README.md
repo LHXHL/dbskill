@@ -4,7 +4,7 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.19-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.20-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
@@ -12,7 +12,7 @@
 
 dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 30 个可直接调用的 Skills。
 
-**v2.18.19 更新：** 精简正式 Skill 的任务收尾，删除重复的 `/dbs` 长篇导航和逐条教程提示；当前任务完成后直接结束，只有用户主动询问下一步时才提示 `/dbs`。同时移除 `/dbs-script-flow` 中无运行价值的版本历史，并增加自动检查防止重复提示再次出现。
+**v2.18.20 更新：** Codex 中的 Skill 使用统一英文名称和更具体的功能说明；同时清理旧调用名与公开文档中的维护信息，让安装、查找和调用更清楚。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新日志](https://github.com/dontbesilent2025/dbskill/releases)
 
@@ -142,26 +142,6 @@ dbskill 的重点是推进眼前真实的任务。它会先处理当前最有价
 推文集与 Skills 安装包相互独立。执行 `npx -y skills add dontbesilent2025/dbskill -g --all` 时，安装的是 Skills，不会自动下载推文集。
 
 ![dbskill 知识来源图](docs/knowledge-pipeline.svg)
-
-## 项目结构
-
-```text
-dbskill/
-├── skills/                  # 30 个正式发布的 Skills + 1 个更新入口
-├── 知识库/                   # 知识原子、方法论文档与概念词典
-├── books/                    # dontbesilent 公开推文集（Markdown + PDF）
-├── docs/                    # 新手入门、图示与演示素材
-├── .claude-plugin/          # Claude Code 插件市场定义
-└── tools/                   # 构建与维护脚本
-```
-
-本地构建发布包：
-
-```bash
-bash tools/build-skills.sh
-```
-
-构建产物位于 `dist/skills/`；名称带 `beta` 的本地试验 Skill 不会进入发布包。
 
 ## 共同贡献者
 

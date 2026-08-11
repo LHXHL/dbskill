@@ -192,11 +192,11 @@ frontmatter 字段名（status / title / source_skill / next_skill）和文件�
 合并了 {N} 份存档（{起始日期} → {结束日期}）。
 ```
 
-如果 dontbesilent 的环境里有「03-格式工具_微信公众号HTML生成skill」可调，加一句：
+如果用户需要把报告发布到公众号或群里，加一句：
 
-> 想发公众号或群里，可以用 `/03-格式工具_微信公众号HTML生成skill` 把这份 markdown 转成微信后台粘贴版。
+> 想发公众号或群里，可以用 `/dbs-wechat-html` 把这份 markdown 转成微信后台粘贴版。
 
-如果没有就不加。
+用户没有发布需求时不加。
 
 ---
 
