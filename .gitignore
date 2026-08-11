@@ -1,6 +1,8 @@
 # 不发 GitHub
 chatbot/
 plans/
+.private/
+private/
 skills 版本管理/
 社媒推广/
 学习课题/
