@@ -4,7 +4,7 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.20-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.21-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
@@ -12,7 +12,7 @@
 
 dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 30 个可直接调用的 Skills。
 
-**v2.18.20 更新：** Codex 中的 Skill 使用统一英文名称和更具体的功能说明；同时清理旧调用名与公开文档中的维护信息，让安装、查找和调用更清楚。
+**v2.18.21 更新：** 多端 Skill 桥接改为自动路由。支持通用目录的 Agent 共用一份入口，其他已安装 Agent 自动补充专属软链，并清理重复和失效链接，用户无需选择桥接模式。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新日志](https://github.com/dontbesilent2025/dbskill/releases)
 
