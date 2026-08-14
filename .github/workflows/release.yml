@@ -40,7 +40,8 @@ jobs:
         run: |
           set -euo pipefail
           VERSION="$(tr -d '[:space:]' < VERSION)"
+          NOTICE="$(python3 -c 'import json; print(json.load(open("UPDATE.json", encoding="utf-8"))["notice"].rstrip("。！？.!?"))')"
           gh release create "${GITHUB_REF_NAME}" \
-            --title "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}：${NOTICE}" \
             --generate-notes \
             "dist/skills/dbskill-${VERSION}.zip"
