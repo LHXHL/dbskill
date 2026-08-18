@@ -22,6 +22,7 @@ releases/
 # 第三方渠道本地适配包（不发 GitHub）
 skillhub/
 workbuddy/
+integrations/deepseek-harness/
 
 # 知识库：只发 Skill 需要的部分
 知识库/legacy/

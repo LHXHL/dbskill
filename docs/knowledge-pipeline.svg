@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
   <title id="title">dbskill 知识来源图</title>
-  <desc id="desc">dbskill 从 16152 条公开推文中筛选和结构化出 4176 个知识原子，并将方法沉淀为 29 个正式业务 Skill 和 1 个系统更新入口。</desc>
+  <desc id="desc">dbskill 从 16152 条公开推文中筛选和结构化出 4176 个知识原子，并将方法沉淀为 31 个正式业务 Skill 和 1 个系统更新入口。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563EB"/>
@@ -69,8 +69,8 @@
   <rect class="node-strong" x="924" y="250" width="204" height="244" rx="18"/>
   <text class="index-inverse" x="948" y="282">04 · SKILLS</text>
   <text class="label-inverse" x="948" y="326">可调用能力</text>
-  <text class="number-inverse" x="948" y="386">29 + 1</text>
-  <text class="body-inverse" x="948" y="426">29 个正式业务 Skill</text>
+  <text class="number-inverse" x="948" y="386">31 + 1</text>
+  <text class="body-inverse" x="948" y="426">31 个正式业务 Skill</text>
   <text class="body-inverse" x="948" y="456">1 个系统更新入口</text>
 
   <text class="eyebrow" x="72" y="565">公开资产</text>

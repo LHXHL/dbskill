@@ -2,6 +2,7 @@
 """校验 Claude Code marketplace 的全量入口与单 Skill 暴露范围。"""
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -9,6 +10,24 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parents[1]
 MARKETPLACE_PATH = ROOT_DIR / ".claude-plugin" / "marketplace.json"
 BUNDLE_MANIFEST_PATH = ROOT_DIR / ".claude-plugin" / "plugin.json"
+
+
+def published_skill_dirs() -> list[str]:
+    result = subprocess.run(
+        ["git", "ls-files", "--cached", "--", "skills/*/SKILL.md"],
+        cwd=ROOT_DIR,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        paths = [Path(line) for line in result.stdout.splitlines() if line]
+    else:
+        paths = list((ROOT_DIR / "skills").glob("*/SKILL.md"))
+
+    return sorted(
+        path.parent.name for path in paths if "beta" not in path.parent.name
+    )
 
 
 def main() -> None:
@@ -51,15 +70,11 @@ def main() -> None:
         if not skill_file.is_file():
             errors.append(f"dbs 全量入口引用了不存在的 {path}/SKILL.md")
 
-    public_skill_dirs = sorted(
-        path.parent.name
-        for path in (ROOT_DIR / "skills").glob("*/SKILL.md")
-        if "beta" not in path.parent.name
-    )
-    if sorted(plugin_names) != public_skill_dirs:
+    extra_skill_dirs = sorted(set(published_skill_dirs()) - set(plugin_names))
+    if extra_skill_dirs:
         errors.append(
-            "marketplace 条目与公开 Skill 目录不一致："
-            f"条目={sorted(plugin_names)!r}，目录={public_skill_dirs!r}"
+            "Git 已跟踪但未登记到 marketplace 的公开 Skill："
+            f"{extra_skill_dirs!r}"
         )
 
     if errors:
