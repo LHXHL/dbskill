@@ -1,5 +1,5 @@
 {
-  "version": "2.18.23",
-  "notice": "新增 JTBD 任务澄清，把用户需求还原为具体情境中的进展、切换力量与选择标准。",
-  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.23"
+  "version": "2.18.24",
+  "notice": "商业诊断会根据用户问题自动选择流程，不再要求用户判断问诊或体检模式",
+  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.24"
 }
