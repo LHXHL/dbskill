@@ -4,7 +4,7 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.24-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.25-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
@@ -12,7 +12,7 @@
 
 dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 31 个可直接调用的 Skills。
 
-**v2.18.24 更新：** `/dbs-diagnosis` 会根据用户已经提供的问题自动选择诊断流程，用户无需先判断该用「问诊」还是「体检」，也无需重复背景。
+**v2.18.25 更新：** `/dbs-standard-answer` 会先挖掘问题相关的领域、作者和可信理论，再研究历史同构案例，给出带条件和失效边界的答案。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新日志](https://github.com/dontbesilent2025/dbskill/releases)
 
@@ -58,7 +58,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 | --- | --- | --- |
 | 判断生意、产品、定价与客户 | `/dbs-diagnosis` | 商业诊断、风险、验证方案 |
 | 找对标并提炼可学习的部分 | `/dbs-benchmark` | 对标筛选与研究框架 |
-| 从历史同构案例中寻找反复有效的解法 | `/dbs-standard-answer` | 案例矩阵、条件性答案与失效边界 |
+| 先挖掘相关领域、作者和可信理论，再研究历史同构答案 | `/dbs-standard-answer` | 理论锚点、案例矩阵、条件性答案与失效边界 |
 | 做选题、内容、标题与短视频 | `/dbs-content`、`/dbs-hook`、`/dbs-xhs-title` | 内容方向与可发布文案 |
 | 发布前检查敏感词、导流、广告与受限内容 | `/dbs-content-risk-check` | 机器审核信号、内容实质问题与最小修改动作 |
 | 检查文稿共鸣、逻辑与传播性 | `/dbs-resonate`、`/dbs-script-flow`、`/dbs-spread` | 修改意见与优先级 |

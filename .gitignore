@@ -47,3 +47,4 @@ tools/__pycache__/
 
 # 仅供本机手动验证的样本
 tests/
+skills/*/evals/

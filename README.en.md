@@ -54,7 +54,7 @@ When you already know the task, call a Skill directly:
 | --- | --- | --- |
 | Evaluate a business, product, price, or customer | `/dbs-diagnosis` | Diagnosis, risks, validation plan |
 | Find and study benchmarks | `/dbs-benchmark` | Benchmark shortlist and research framework |
-| Find recurring solutions in structurally analogous historical cases | `/dbs-standard-answer` | Case matrix, conditional answer, and failure boundaries |
+| Ground a problem in relevant fields and theories, then study historical analogies | `/dbs-standard-answer` | Theory anchor, case matrix, conditional answer, and failure boundaries |
 | Create topics, content, titles, and videos | `/dbs-content`, `/dbs-hook`, `/dbs-xhs-title` | Direction and publishable copy |
 | Check content risks before publishing | `/dbs-content-risk-check` | Machine-review signals, substantive issues, and minimal edits |
 | Review resonance, logic, and reach | `/dbs-resonate`, `/dbs-script-flow`, `/dbs-spread` | Prioritized edits |
