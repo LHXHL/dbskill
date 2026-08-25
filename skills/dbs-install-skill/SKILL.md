@@ -103,6 +103,8 @@ description: 将单个 Skill 或 Skill 集合安装到通用 Agents、Claude Cod
 - 目录本身包含 `SKILL.md`；
 - 目录的一级子目录中包含一个或多个 `SKILL.md`。
 
+入口名优先读取真源 `SKILL.md` frontmatter 中的 `name`；只有 `name` 缺失时才退回源目录名。这样源目录可以使用分类前缀，各 Agent 仍保持稳定的历史触发名。
+
 ---
 
 ## 执行安装
@@ -188,6 +190,7 @@ skills/dbs-install-skill/scripts/install-skill.sh unlink <skill-name-or-path>
 
 - 源目录存在；
 - 源目录包含 `SKILL.md`，或其一级子目录包含 `SKILL.md`；
+- 入口名与真源 frontmatter `name` 一致；缺失 `name` 时才使用源目录名；
 - 外部路径使用绝对路径，或能从当前工作目录解析；
 - `~/.agents/skills/<name>` 是公共规范入口；
 - Codex 等公共兼容客户端的专属目录中没有同源软链；

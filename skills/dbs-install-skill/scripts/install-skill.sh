@@ -76,6 +76,33 @@ list_skill_sources() {
   [[ "$found" -eq 1 ]] || die "$candidate 里没有 SKILL.md，也没有包含 SKILL.md 的一级子目录"
 }
 
+skill_name() {
+  local src="$1"
+  local skill_file="$src/SKILL.md"
+  local name
+
+  name="$(awk '
+    NR == 1 && $0 == "---" { in_frontmatter = 1; next }
+    in_frontmatter && $0 == "---" { exit }
+    in_frontmatter && /^name:[[:space:]]*/ {
+      sub(/^name:[[:space:]]*/, "")
+      gsub(/^[[:space:]]+|[[:space:]]+$/, "")
+      print
+      exit
+    }
+  ' "$skill_file")"
+
+  if [[ "$name" == \"*\" && "$name" == *\" ]] || [[ "$name" == \'*\' && "$name" == *\' ]]; then
+    name="${name:1:${#name}-2}"
+  fi
+  [[ -n "$name" ]] || name="$(basename "$src")"
+
+  case "$name" in
+    .|..|*/*) die "Skill name 不合法：$name（$skill_file）" ;;
+  esac
+  printf '%s\n' "$name"
+}
+
 SHARED_TARGET_DIR="$HOME/.agents/skills"
 
 # 这些客户端没有采用 ~/.agents/skills，或当前仍需要原生目录。
@@ -262,6 +289,7 @@ remove_duplicate_aliases() {
   local link
   local target
   local canonical
+  local canonical_name
 
   for dest_dir in "$SHARED_TARGET_DIR" "${NATIVE_TARGET_DIRS[@]}"; do
     [[ -d "$dest_dir" ]] || continue
@@ -269,7 +297,9 @@ remove_duplicate_aliases() {
       link_targets_under "$link" "$candidate" || continue
       target="$(resolved_link_target "$link" 2>/dev/null || true)"
       [[ -n "$target" ]] || continue
-      canonical="$dest_dir/$(basename "$target")"
+      [[ -f "$target/SKILL.md" ]] || continue
+      canonical_name="$(skill_name "$target")"
+      canonical="$dest_dir/$canonical_name"
       if [[ "$link" != "$canonical" ]] && link_points_to "$canonical" "$target"; then
         rm "$link"
         echo "✓ 已清理重复别名 $link"
@@ -487,7 +517,7 @@ main() {
   candidate="$(resolve_candidate "$input" "$root")"
 
   while IFS= read -r src; do
-    name="$(basename "$src")"
+    name="$(skill_name "$src")"
     echo "== $name =="
 
     case "$action" in

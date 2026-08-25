@@ -44,6 +44,8 @@ tools/__pycache__/
 *更新公告_微信公众号版.html
 公众号HTML输出/
 内容资产工程系统_微信公众号版.html
+tools/build-open-tweet-collection.mjs
+tools/build-xiaohongshu-upload.sh
 
 # 仅供本机手动验证的样本
 tests/
