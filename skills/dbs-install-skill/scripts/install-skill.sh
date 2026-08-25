@@ -4,15 +4,15 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  bridge-skill.sh link <skill-name-or-path>
-  bridge-skill.sh unlink <skill-name-or-path>
-  bridge-skill.sh status <skill-name-or-path>
+  install-skill.sh link <skill-name-or-path>
+  install-skill.sh unlink <skill-name-or-path>
+  install-skill.sh status <skill-name-or-path>
 
 Examples:
-  bridge-skill.sh link dbs-hook
-  bridge-skill.sh link skills/dbs-hook
-  bridge-skill.sh link skills
-  bridge-skill.sh status /absolute/path/to/skill
+  install-skill.sh link dbs-hook
+  install-skill.sh link skills/dbs-hook
+  install-skill.sh link skills
+  install-skill.sh status /absolute/path/to/skill
 
 Routing:
   ~/.agents/skills is the shared skill bus. Codex, GitHub Copilot, Gemini CLI,
@@ -456,7 +456,7 @@ status_grok_one() {
       return 2
     fi
   elif [[ -e "$dir" ]]; then
-    echo "✗ Grok：$dir 存在，但不是 dbs-bridge 生成的 bridge"
+    echo "✗ Grok：$dir 存在，但并非 dbs-install-skill 生成的适配层"
     return 2
   else
     echo "· Grok：$dir 未桥接"

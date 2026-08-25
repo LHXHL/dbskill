@@ -1,5 +1,5 @@
 {
-  "version": "2.18.25",
-  "notice": "标准答案会先挖掘相关领域、作者和可信理论，再用历史同构案例给出带条件的答案。",
-  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.25"
+  "version": "2.18.26",
+  "notice": "/dbs-install-skill 用安装、卸载和状态检查管理多端 Skill，入口更容易理解。",
+  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.26"
 }

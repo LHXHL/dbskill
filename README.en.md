@@ -61,7 +61,7 @@ When you already know the task, call a Skill directly:
 | Clarify concepts, goals, and questions | `/dbs-deconstruct`, `/dbs-goal`, `/dbs-good-question` | Testable definitions and goals |
 | Work through procrastination and execution blocks | `/dbs-action`, `/dbs-slowisfast` | Blocker analysis and next action |
 | Record and review long-term decisions | `/dbs-decision`, `/dbs-save`, `/dbs-restore`, `/dbs-report` | Local decision archive and reports |
-| Build content assets and multi-Agent workflows | `/dbs-content-system`, `/dbs-agent-migration`, `/dbs-bridge` | Local project, topic map, and bridge plan |
+| Build content assets and multi-Agent workflows | `/dbs-content-system`, `/dbs-agent-migration`, `/dbs-install-skill` | Local project, topic map, and installation plan |
 | Turn a local folder into a knowledge base | `/dbs-knowledge` | Knowledge navigation, version rules, and ready-to-use prompts |
 | Audit local Skill risks | `/dbs-skill-cleaner` | Risk report and confirmed isolation |
 

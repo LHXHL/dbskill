@@ -60,7 +60,7 @@ dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。�
 | 概念、目標、問いを明確にする | `/dbs-deconstruct`、`/dbs-goal`、`/dbs-good-question` | 検証可能な定義と目標 |
 | 先延ばしや実行の停滞を扱う | `/dbs-action`、`/dbs-slowisfast` | 停滞分析と次の行動 |
 | 長期の意思決定を記録・振り返る | `/dbs-decision`、`/dbs-save`、`/dbs-restore`、`/dbs-report` | ローカルの記録とレポート |
-| コンテンツ資産と複数 Agent の環境を構築する | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-bridge` | ローカルプロジェクトと連携計画 |
+| コンテンツ資産と複数 Agent の環境を構築する | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | ローカルプロジェクトとインストール計画 |
 | ローカルフォルダをナレッジベースにする | `/dbs-knowledge` | ナビゲーション、バージョン規則、すぐ使える質問例 |
 | ローカル Skill のリスクを監査する | `/dbs-skill-cleaner` | リスク報告と確認後の隔離 |
 

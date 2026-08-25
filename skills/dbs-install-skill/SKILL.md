@@ -1,11 +1,11 @@
 ---
-name: dbs-bridge
-description: 将单个 Skill 或 Skill 集合自动桥接到通用 Agents、Claude Code、Codex、WorkBuddy、Grok、Hermes Agent、Kiro、Qwen Code、Cline 等 Agent。用户要求跨 Agent 安装、同步、查看、去重或取消 Skill 链接时使用。
+name: dbs-install-skill
+description: 将单个 Skill 或 Skill 集合安装到通用 Agents、Claude Code、Codex、WorkBuddy、Grok、Hermes Agent、Kiro、Qwen Code、Cline 等 Agent。用户要求跨 Agent 安装、同步、查看、去重或卸载 Skill 时使用。
 ---
 
-# dbs-bridge：多端 Skill 自动桥接
+# dbs-install-skill：多端 Skill 安装与同步
 
-把任意包含 `SKILL.md` 的 Skill 源目录，或包含多个 Skill 子目录的集合目录，桥接到本机已经安装的 Agent。
+把任意包含 `SKILL.md` 的 Skill 源目录，或包含多个 Skill 子目录的集合目录，安装到本机已经存在的 Agent。
 
 用户始终使用同一条命令。脚本自动选择公共入口或专属入口，用户无需判断宿主类型，也无需添加模式参数。
 
@@ -43,7 +43,7 @@ description: 将单个 Skill 或 Skill 集合自动桥接到通用 Agents、Clau
 - Qwen Code：`~/.qwen/skills/<skill-name>`；
 - Cline：`~/.cline/skills/<skill-name>`。
 
-### Grok 薄 bridge
+### Grok 薄适配层
 
 本机存在 `~/.grok` 时，脚本生成：
 
@@ -58,7 +58,7 @@ description: 将单个 Skill 或 Skill 集合自动桥接到通用 Agents、Clau
 1. 删除公共入口兼容客户端专属目录中指向同一真源的冗余软链；
 2. 删除旧版脚本曾写入、当前已停止维护的宿主软链；
 3. 删除同一宿主中指向同一真源、且规范名称已经存在的旧别名；
-4. 集合桥接时删除指向集合内已失效源目录的断裂软链和 Grok bridge；
+4. 集合安装时删除指向集合内已失效源目录的断裂软链和 Grok 适配层；
 5. 保留真实目录、真实文件以及指向其他来源的软链，并报告冲突；
 6. 不删除源 Skill。
 
@@ -70,11 +70,11 @@ description: 将单个 Skill 或 Skill 集合自动桥接到通用 Agents、Clau
 2. **必要时补专属入口。** 仅给当前仍依赖原生目录的客户端创建软链。
 3. **用户无需选择模式。** 脚本不要求用户提供路由参数。
 4. **公共兼容客户端只保留一份。** Codex 等客户端不能同时存在公共入口和专属入口。
-5. **各宿主只使用软链。** Grok 是唯一使用薄 bridge 的宿主。
-6. **不创建不存在的 Agent 主目录。** `~/.agents` 是公共桥接基础设施，可以由脚本创建；其他 Agent 主目录不存在时直接跳过。
+5. **各宿主只使用软链。** Grok 是唯一使用薄适配层的宿主。
+6. **不创建不存在的 Agent 主目录。** `~/.agents` 是公共安装入口，可以由脚本创建；其他 Agent 主目录不存在时直接跳过。
 7. **不覆盖真实目录。** 目标位置已有真实目录或文件时，保留并报告。
-8. **拆桥只删派生产物。** `unlink` 只删除指向指定真源的软链，以及本工具生成的 Grok bridge。
-9. **优先使用脚本。** 使用本 Skill 自带的 `scripts/bridge-skill.sh`，不要临场重写桥接命令。
+8. **卸载只删派生产物。** `unlink` 只删除指向指定真源的软链，以及本工具生成的 Grok 适配层。
+9. **优先使用脚本。** 使用本 Skill 自带的 `scripts/install-skill.sh`，不要临场重写安装命令。
 
 ---
 
@@ -96,7 +96,7 @@ description: 将单个 Skill 或 Skill 集合自动桥接到通用 Agents、Clau
 3. 用户只给 Skill 名称，先查当前工作目录，再查 dbskill 仓库 `skills/<name>`；
 4. 用户只说“这个 Skill”，使用当前对话刚创建、改名或讨论的 Skill；
 5. 仍不确定时，查看当前工作目录和仓库 `skills/` 下最近修改的 Skill；
-6. 仍无法确定时，只问一句：`桥接哪个 Skill？给我 Skill 名称或路径。`
+6. 仍无法确定时，只问一句：`安装哪个 Skill？给我 Skill 名称或路径。`
 
 源目录必须满足以下任一条件：
 
@@ -105,34 +105,34 @@ description: 将单个 Skill 或 Skill 集合自动桥接到通用 Agents、Clau
 
 ---
 
-## 执行桥接
+## 执行安装
 
 在 dbskill 仓库根目录运行：
 
 ```bash
-skills/dbs-bridge/scripts/bridge-skill.sh link <skill-name-or-path>
+skills/dbs-install-skill/scripts/install-skill.sh link <skill-name-or-path>
 ```
 
 示例：
 
 ```bash
-skills/dbs-bridge/scripts/bridge-skill.sh link dbs-hook
-skills/dbs-bridge/scripts/bridge-skill.sh link skills/my-custom-skill
-skills/dbs-bridge/scripts/bridge-skill.sh link skills
-skills/dbs-bridge/scripts/bridge-skill.sh link "/absolute/path/to/skill"
-skills/dbs-bridge/scripts/bridge-skill.sh link "/Users/me/external-skills"
+skills/dbs-install-skill/scripts/install-skill.sh link dbs-hook
+skills/dbs-install-skill/scripts/install-skill.sh link skills/my-custom-skill
+skills/dbs-install-skill/scripts/install-skill.sh link skills
+skills/dbs-install-skill/scripts/install-skill.sh link "/absolute/path/to/skill"
+skills/dbs-install-skill/scripts/install-skill.sh link "/Users/me/external-skills"
 ```
 
-执行完成后，根据脚本输出回报公共入口、专属入口、Grok bridge 和冗余清理结果。
+执行完成后，根据脚本输出回报公共入口、专属入口、Grok 适配层和冗余清理结果。
 
 ---
 
 ## 查看状态
 
-用户问“桥好了没”“有没有重复”“查看桥接状态”时运行：
+用户问“装好了吗”“有没有重复”“查看安装状态”时运行：
 
 ```bash
-skills/dbs-bridge/scripts/bridge-skill.sh status <skill-name-or-path>
+skills/dbs-install-skill/scripts/install-skill.sh status <skill-name-or-path>
 ```
 
 状态正常时，脚本必须输出：
@@ -149,28 +149,28 @@ skills/dbs-bridge/scripts/bridge-skill.sh status <skill-name-or-path>
 
 ---
 
-## 取消桥接
+## 卸载 Skill
 
-用户说“取消桥接”“拆桥”“unlink”时运行：
+用户说“卸载 Skill”“取消安装”“unlink”时运行：
 
 ```bash
-skills/dbs-bridge/scripts/bridge-skill.sh unlink <skill-name-or-path>
+skills/dbs-install-skill/scripts/install-skill.sh unlink <skill-name-or-path>
 ```
 
-完成后告诉用户：源 Skill 没有被删除，只移除了公共入口、专属入口和 Grok bridge 等派生产物。
+完成后告诉用户：源 Skill 没有被删除，只移除了公共入口、专属入口和 Grok 适配层等派生产物。
 
 ---
 
 ## 输出规范
 
-桥接完成后简短回报：
+安装完成后简短回报：
 
 ```markdown
-已桥接 `<skill-name>`：
+已安装 `<skill-name>`：
 
 - 公共入口：`~/.agents/skills/<skill-name>`；
 - 专属入口：仅写入本机已安装且仍需要专属目录的 Agent；
-- Grok：`~/.grok/skills/<skill-name>/SKILL.md`（本机已安装时）；
+- Grok：`~/.grok/skills/<skill-name>/SKILL.md`（本机存在时）；
 - 去重：已清理指向同一真源的历史冗余软链。
 ```
 
@@ -192,10 +192,10 @@ skills/dbs-bridge/scripts/bridge-skill.sh unlink <skill-name-or-path>
 - `~/.agents/skills/<name>` 是公共规范入口；
 - Codex 等公共兼容客户端的专属目录中没有同源软链；
 - 专属宿主目标位置若存在，必须是软链才允许更新；
-- Grok 目标位置若存在，必须是本工具生成的 Grok bridge 才允许更新；
+- Grok 目标位置若存在，必须是本工具生成的 Grok 适配层才允许更新；
 - 真实目录、真实文件和其他来源软链没有被删除；
 - 源目录没有被删除；
-- `private/` 与 `.private/` 没有被读取、复制、暂存或桥接。
+- `private/` 与 `.private/` 没有被读取、复制、暂存或安装。
 
 ---
 

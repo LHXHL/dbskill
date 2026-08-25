@@ -21,7 +21,7 @@
     "./skills/dbs-ai-check",
     "./skills/dbs-wechat-html",
     "./skills/dbs-slowisfast",
-    "./skills/dbs-bridge",
+    "./skills/dbs-install-skill",
     "./skills/dbs-agent-migration",
     "./skills/dbs-save",
     "./skills/dbs-restore",

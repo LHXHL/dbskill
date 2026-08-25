@@ -60,7 +60,7 @@ dbskill 은 [dontbesilent](https://x.com/dontbesilent)가 만들었습니다. �
 | 개념, 목표, 질문 명확화 | `/dbs-deconstruct`, `/dbs-goal`, `/dbs-good-question` | 검증 가능한 정의와 목표 |
 | 미루기와 실행 정체 해결 | `/dbs-action`, `/dbs-slowisfast` | 정체 분석과 다음 행동 |
 | 장기 의사결정 기록과 회고 | `/dbs-decision`, `/dbs-save`, `/dbs-restore`, `/dbs-report` | 로컬 기록과 보고서 |
-| 콘텐츠 자산과 다중 Agent 환경 구축 | `/dbs-content-system`, `/dbs-agent-migration`, `/dbs-bridge` | 로컬 프로젝트와 연결 계획 |
+| 콘텐츠 자산과 다중 Agent 환경 구축 | `/dbs-content-system`, `/dbs-agent-migration`, `/dbs-install-skill` | 로컬 프로젝트와 설치 계획 |
 | 로컬 폴더를 지식 베이스로 전환 | `/dbs-knowledge` | 지식 탐색, 버전 규칙, 바로 쓸 수 있는 질문 예시 |
 | 로컬 Skill 위험 감사 | `/dbs-skill-cleaner` | 위험 보고서와 확인 후 격리 |
 

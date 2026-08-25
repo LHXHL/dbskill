@@ -60,7 +60,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 建立。它從 16,152 �
 | 釐清概念、目標和問題 | `/dbs-deconstruct`、`/dbs-goal`、`/dbs-good-question` | 可驗證的定義與行動目標 |
 | 處理拖延、貪快與行動受阻 | `/dbs-action`、`/dbs-slowisfast` | 卡點分析與下一步動作 |
 | 紀錄、復盤長期決策 | `/dbs-decision`、`/dbs-save`、`/dbs-restore`、`/dbs-report` | 本機決策檔案與報告 |
-| 建立內容資產與多端 Agent 工作台 | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-bridge` | 本機工程、主題地圖與橋接方案 |
+| 建立內容資產與多端 Agent 工作台 | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | 本機工程、主題地圖與安裝方案 |
 | 把本機資料夾變成知識庫 | `/dbs-knowledge` | 知識庫導航、版本規則與可直接使用的提問入口 |
 | 審查本機 Skill 風險 | `/dbs-skill-cleaner` | 風險報告與確認後隔離 |
 

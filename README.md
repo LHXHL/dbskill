@@ -4,7 +4,7 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.25-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.26-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
@@ -12,7 +12,7 @@
 
 dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 31 个可直接调用的 Skills。
 
-**v2.18.25 更新：** `/dbs-standard-answer` 会先挖掘问题相关的领域、作者和可信理论，再研究历史同构案例，给出带条件和失效边界的答案。
+**v2.18.26 更新：** `/dbs-install-skill` 用安装、卸载和状态检查管理多端 Skill，入口更容易理解。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新日志](https://github.com/dontbesilent2025/dbskill/releases)
 
@@ -66,7 +66,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 | 处理拖延、贪快和行动受阻 | `/dbs-action`、`/dbs-slowisfast` | 卡点分析与下一步动作 |
 | 记录、复盘长期决策 | `/dbs-decision`、`/dbs-save`、`/dbs-restore`、`/dbs-report` | 本地决策档案与报告 |
 | 建立和治理文件夹知识库 | `/dbs-knowledge` | 知识库导航、版本规则、健康检查与 SOT 分层瘦身 |
-| 建立内容资产与多端 Agent 工作台 | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-bridge` | 本地工程、主题地图与桥接方案 |
+| 建立内容资产与多端 Agent 工作台 | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | 本地工程、主题地图与安装方案 |
 | 审查本地 Skill 风险 | `/dbs-skill-cleaner` | 风险报告与确认后的隔离操作 |
 
 完整的 31 个 Skill、适用时机、输入示例和动态导航方式，见 [新手入门与 Skill 全目录](docs/新手入门.md#skill-全目录)。
