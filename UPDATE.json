@@ -1,5 +1,5 @@
 {
-  "version": "2.18.28",
-  "notice": "标准答案会先根据现有材料回答，只在关键事实影响结论时联网。",
-  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.28"
+  "version": "2.18.29",
+  "notice": "传播解码会按内容选择匹配理论，并标明文本证据、解释边界和置信度",
+  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.29"
 }
