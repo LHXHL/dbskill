@@ -1,7 +1,7 @@
 {
   "name": "dbs",
   "displayName": "dbskill",
-  "description": "dontbesilent 商业工具箱完整入口。包含 31 个正式业务 Skill 和 1 个系统更新入口。",
+  "description": "dontbesilent 商业工具箱完整入口。包含 32 个正式业务 Skill 和 1 个系统更新入口。",
   "skills": [
     "./skills/dbs",
     "./skills/dbs-update",
@@ -22,6 +22,7 @@
     "./skills/dbs-wechat-html",
     "./skills/dbs-slowisfast",
     "./skills/dbs-install-skill",
+    "./skills/dbs-skill-maker",
     "./skills/dbs-agent-migration",
     "./skills/dbs-save",
     "./skills/dbs-restore",

@@ -35,7 +35,7 @@ group_for() {
       echo "进阶-状态管理" ;;
     dbs-decision)
       echo "进阶-决策系统" ;;
-    dbs-agent-migration|dbs-install-skill|dbs-skill-cleaner)
+    dbs-agent-migration|dbs-install-skill|dbs-skill-maker|dbs-skill-cleaner)
       echo "进阶-Agent基建" ;;
     dbs-learning)
       echo "进阶-学习" ;;
@@ -84,6 +84,21 @@ build_one() {
   if [ -d "$skill_dir/scripts" ]; then
     mkdir -p "$stage_dir/scripts"
     cp -R "$skill_dir/scripts/." "$stage_dir/scripts/"
+  fi
+
+  if [ -d "$skill_dir/agents" ]; then
+    mkdir -p "$stage_dir/agents"
+    cp -R "$skill_dir/agents/." "$stage_dir/agents/"
+  fi
+
+  if [ -d "$skill_dir/references" ]; then
+    mkdir -p "$stage_dir/references"
+    cp -R "$skill_dir/references/." "$stage_dir/references/"
+  fi
+
+  if [ -d "$skill_dir/assets" ]; then
+    mkdir -p "$stage_dir/assets"
+    cp -R "$skill_dir/assets/." "$stage_dir/assets/"
   fi
 
   refs="$(grep -Eo '知识库/[^`,。 、)]*\.md' "$skill_dir/SKILL.md" || true)"
@@ -193,6 +208,7 @@ Trae Solo 一个 zip 装一个 skill。本压缩包按使用场景分了几个�
 
 - **dbs-agent-migration** — Agent 工作台迁移（Claude Code / Codex / Grok / 通用 Agents 多端一致）
 - **dbs-install-skill** — 多端 Skill 安装与同步（安装、查看或卸载本地与外部 Skill）
+- **dbs-skill-maker** — 单个 Skill 制作器（需求分析、真实文件、分级验证与可选 GitHub 发布）
 - **dbs-skill-cleaner** — 本地 skill 清理器（扫描广告导流、任务劫持与可疑外部调用；确认后隔离）
 
 ## 进阶-学习
