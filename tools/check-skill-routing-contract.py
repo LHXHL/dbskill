@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""校验正式 Skill 的单步路由与跨 Skill 交接契约。"""
+"""校验正式 Skill 的单任务编排与跨 Skill 交接契约。"""
 
 import json
 import re
@@ -10,8 +10,17 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parents[1]
 MARKETPLACE_PATH = ROOT_DIR / ".claude-plugin" / "marketplace.json"
 DBS_SKILL_PATH = ROOT_DIR / "skills" / "dbs" / "SKILL.md"
+OFFICIAL_NAMES_PATH = (
+    ROOT_DIR / "skills" / "dbs" / "references" / "official-skill-names.txt"
+)
 
-ROUTING_CONTRACT_MARKER = "### 跨 Skill 交接契约"
+ROUTING_CONTRACT_MARKER = "## 跨 Skill 交接契约"
+COMPOSITION_MARKERS = (
+    "## 模式 B：任务编排",
+    "1 个主 Skill 和最多 2 个辅助 Skill",
+    "scripts/list-official-skills.py",
+    "references/composition-contract.md",
+)
 CONDITIONAL_NAVIGATION_MARKER = (
     "只有用户明确询问下一步，且当前环境已经安装 `/dbs` 时"
 )
@@ -28,9 +37,26 @@ def main() -> None:
     formal_names = [plugin["name"] for plugin in marketplace.get("plugins", [])]
     errors: list[str] = []
 
+    snapshot_names = [
+        line.strip()
+        for line in OFFICIAL_NAMES_PATH.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    expected_snapshot_names = [name for name in formal_names if name != "dbs"]
+    if snapshot_names != expected_snapshot_names:
+        errors.append(
+            "skills/dbs/references/official-skill-names.txt "
+            "与 Marketplace 正式条目顺序或内容不一致"
+        )
+
     dbs_text = DBS_SKILL_PATH.read_text(encoding="utf-8")
     if ROUTING_CONTRACT_MARKER not in dbs_text:
         errors.append("skills/dbs/SKILL.md 缺少「跨 Skill 交接契约」")
+    for marker in COMPOSITION_MARKERS:
+        if marker not in dbs_text:
+            errors.append(f"skills/dbs/SKILL.md 缺少单任务编排标记：{marker}")
+    if "## 模式 B：任务后导航" in dbs_text or "### 导航地图" in dbs_text:
+        errors.append("skills/dbs/SKILL.md 仍含旧版任务后静态导航")
 
     for name in formal_names:
         skill_path = ROOT_DIR / "skills" / name / "SKILL.md"
@@ -88,8 +114,8 @@ def main() -> None:
     route_map_text = (ROOT_DIR / "docs" / "skill-link-map.mmd").read_text(
         encoding="utf-8"
     )
-    if "没有明确／不确定" not in route_map_text or "回到 /dbs" not in route_map_text:
-        errors.append("docs/skill-link-map.mmd 未体现未明确下一步时回到 /dbs")
+    if "没有完成／有新反馈" not in route_map_text or "回到 /dbs" not in route_map_text:
+        errors.append("docs/skill-link-map.mmd 未体现任务未完成或有新反馈时回到 /dbs")
 
     route_svg_text = (ROOT_DIR / "docs" / "skill-link-map-4x3.svg").read_text(
         encoding="utf-8"
@@ -106,14 +132,14 @@ def main() -> None:
             )
 
     if errors:
-        print("Skill 路由契约校验失败：", file=sys.stderr)
+        print("Skill 编排契约校验失败：", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         sys.exit(1)
 
     leaf_count = len([name for name in formal_names if name != "dbs"])
     print(
-        "Skill 路由契约校验通过："
+        "Skill 编排契约校验通过："
         f"{len(formal_names)} 个正式 Skill，"
         f"{leaf_count} 个叶子 Skill 已使用条件式 /dbs 导航"
     )

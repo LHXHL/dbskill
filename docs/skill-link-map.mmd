@@ -25,23 +25,23 @@
   }
 }}%%
 
-%% 本文件保留路由逻辑草图；README 中的正式 4:3 图示为手工维护的 skill-link-map-4x3.svg。
+%% 本文件保留编排逻辑草图；README 中的正式 4:3 图示为手工维护的 skill-link-map-4x3.svg。
 
 block-beta
     columns 4
 
     A["真实任务、材料<br/>或新反馈"]
     B["&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/dbs<br/>主入口&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
-    C["选择 1 个<br/>当前 Skill"]
-    D["完成当前任务<br/>并输出结论"]
+    C["判断单 Skill<br/>或主辅组合"]
+    D["生成可直接发送的<br/>任务提示词"]
 
     space
-    E{"下一步明确吗？"}:2
+    E{"当前任务完成吗？"}:2
     space
 
-    F["没有明确／不确定<br/>回到 /dbs"]
-    G["已经指定其他 Skill<br/>尊重用户选择"]
-    H["继续当前任务<br/>留在当前 Skill"]
+    F["没有完成／有新反馈<br/>回到 /dbs"]
+    G["已经明确下一步<br/>尊重用户选择"]
+    H["已经完成<br/>直接结束"]
     space
 
     A --> B

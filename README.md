@@ -4,7 +4,7 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.30-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.31-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
@@ -12,15 +12,15 @@
 
 dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 32 个可直接调用的 Skills。
 
-**v2.18.30 更新：** 新增 `/dbs-skill-maker`。你可以和 Agent 一起分析反复遇到的问题，直接生成可安装的单个 Skill，区分结构、行为、回归与 `npx` 安装验证；只有你明确要求分享时，才会准备 GitHub 发布。
+**v2.18.31 更新：** `/dbs` 现在会根据任务复杂度选择单个 Skill 或「1 个主 Skill＋最多 2 个辅助 Skill」，说明选择理由，并生成一段可以直接继续发送的执行提示词。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新日志](https://github.com/dontbesilent2025/dbskill/releases)
 
-![dbskill 动态路由图](docs/skill-link-map-4x3.svg)
+![dbskill 动态编排图](docs/skill-link-map-4x3.svg)
 
 ## dbskill 解决什么问题
 
-你不需要先学会一套复杂的方法，也不需要知道该调用哪个工具。把当下的业务、材料、选择或卡点交给 `/dbs`，它会根据对话上下文选择当前适合的 Skill。
+你不需要先学会一套复杂的方法，也不需要知道该调用哪个工具。把当下的业务、材料、选择或卡点交给 `/dbs`，它会根据对话上下文判断单个 Skill 是否足够；复杂任务可以编排 1 个主 Skill 和最多 2 个辅助 Skill。
 
 | 真实处境 | 你会得到 |
 | --- | --- |
@@ -40,7 +40,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 我需要判断问题出在产品、定价，还是我找错了客户。
 ```
 
-`/dbs` 会读取当前对话信息，选择合适的分析路径。完成一轮后，继续补充新的事实或反馈，再输入 `/dbs`，它会判断当前该推进什么。
+`/dbs` 会读取当前对话信息，说明推荐理由，并生成一段可以直接继续发送的提示词。完成一轮后，继续补充新的事实或反馈，再输入 `/dbs`，它会重新判断当前任务需要单项还是组合。
 
 已经知道需求时，可以直接调用具体 Skill：
 
@@ -114,14 +114,16 @@ claude plugin install dbs@dontbesilent-skills
 ```text
 真实任务
    ↓
-/dbs 读取上下文并选择当前入口
+/dbs 读取上下文并判断单项或组合
    ↓
-一个 Skill 完成诊断、产出或记录
+生成一段可直接继续发送的提示词
    ↓
-补充结果与反馈，再决定下一步
+入选 Skill 交付一份统一结果
+   ↓
+补充结果与反馈，再重新编排
 ```
 
-dbskill 的重点是推进眼前真实的任务。它会先处理当前最有价值的结点，再根据实际结果衔接后续工作。
+dbskill 每次只处理一个当前任务。单个 Skill 能覆盖时保持简单；任务包含独立且必要的要求时，使用主辅组合共同交付一份结果。
 
 ## 知识库与本地记录
 

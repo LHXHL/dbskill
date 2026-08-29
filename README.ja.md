@@ -4,21 +4,21 @@
 
 > 起業家とコンテンツ制作者のための中国語 AI Skills ツールキット。ビジネス、コンテンツ、実行に関する現実の課題を Agent に渡し、明確な判断と次の具体的な行動を得られます。
 
-[![Version](https://img.shields.io/badge/version-2.18.19-111111.svg)](VERSION)
-[![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
+[![Version](https://img.shields.io/badge/version-2.18.31-111111.svg)](VERSION)
+[![Skills](https://img.shields.io/badge/Skills-32-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
 **豆包、WorkBuddy、Claude Code、Codex、および Skills に対応する他の Agent で利用できます。**
 
-dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。公開投稿 16,152 件から、4,176 件の構造化知識原子と直接呼び出せる 30 の Skills を整理しています。
+dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。公開投稿 16,152 件から、4,176 件の構造化知識原子と直接呼び出せる 32 の正式ビジネス Skill を整理しています。
 
 [クイックスタート](#クイックスタート) · [インストール](#インストール) · [機能](#機能一覧) · [完全ガイド](docs/新手入门.md) · [リリース](https://github.com/dontbesilent2025/dbskill/releases)
 
-![dbskill のルーティング図](docs/skill-link-map.svg)
+![dbskill の動的編成図](docs/skill-link-map.svg)
 
 ## dbskill が解決する課題
 
-複雑な方法論を先に学ぶ必要はありません。どのツールを呼び出すかも覚えなくて大丈夫です。現在のビジネス状況、素材、選択、行き詰まりを `/dbs` に渡すと、会話の文脈に応じて適切な Skill を選びます。
+複雑な方法論を先に学ぶ必要はありません。どのツールを呼び出すかも覚えなくて大丈夫です。現在のビジネス状況、素材、選択、行き詰まりを `/dbs` に渡すと、1 つの Skill で十分かを判断し、複雑なタスクでは主 Skill 1 つと補助 Skill 最大 2 つを編成します。
 
 | 状況 | 得られるもの |
 | --- | --- |
@@ -37,7 +37,7 @@ dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。�
 問題が商品、価格、顧客層のどこにあるか判断したいです。
 ```
 
-`/dbs` は会話の情報を読み、適切な進め方を選択します。1 回終えた後に新しい事実やフィードバックを追加し、再度 `/dbs` を入力すると次の作業を判断します。
+`/dbs` は会話の情報を読み、選択理由を説明して、そのまま送信できるタスクプロンプトを生成します。1 回終えた後に新しい事実やフィードバックを追加し、再度 `/dbs` を入力すると現在のタスクを再判断します。
 
 目的が明確な場合は、Skill を直接呼び出せます。
 
@@ -64,7 +64,7 @@ dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。�
 | ローカルフォルダをナレッジベースにする | `/dbs-knowledge` | ナビゲーション、バージョン規則、すぐ使える質問例 |
 | ローカル Skill のリスクを監査する | `/dbs-skill-cleaner` | リスク報告と確認後の隔離 |
 
-30 Skills の全一覧、入力例、使い分けは [完全ガイド](docs/新手入门.md#skill-全目录) を参照してください。
+32 の正式ビジネス Skill の全一覧、入力例、使い分けは [完全ガイド](docs/新手入门.md#skill-全目录) を参照してください。
 
 ## インストール
 
@@ -87,7 +87,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-`dbs` プラグインには、正式な 30 個のビジネス Skill と `dbs-update` システムエントリが含まれます。Claude Code ではプラグイン Skill に名前空間が付きます。メインルーターは `/dbs:dbs`、個別機能は `/dbs:dbs-diagnosis` などを使用します。
+`dbs` プラグインには、正式な 32 個のビジネス Skill と `dbs-update` システムエントリが含まれます。Claude Code ではプラグイン Skill に名前空間が付きます。メインエントリは `/dbs:dbs`、個別機能は `/dbs:dbs-diagnosis` などを使用します。
 
 機能を 1 つだけインストールする場合は、対応するプラグインを選択します。例：`claude plugin install dbs-diagnosis@dontbesilent-skills`
 
@@ -108,11 +108,13 @@ claude plugin install dbs@dontbesilent-skills
 ```text
 現実のタスク
    ↓
-/dbs が文脈を読み、現在の入口を選択
+/dbs が文脈を読み、単一 Skill または主補助編成を判断
    ↓
-1 つの Skill が診断、成果物、記録を作成
+そのまま送信できるタスクプロンプトを生成
    ↓
-結果とフィードバックを追加して、次の一歩を決める
+選ばれた Skill が 1 つの統合結果を納品
+   ↓
+結果とフィードバックを追加し、現在のタスクを再判断
 ```
 
 ## ナレッジベースとローカル記録

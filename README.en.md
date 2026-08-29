@@ -4,21 +4,21 @@
 
 > A Chinese AI Skills toolkit for entrepreneurs and content creators. Give your Agent a real business, content, or execution problem, and get a clear judgment plus the next action you can take.
 
-[![Version](https://img.shields.io/badge/version-2.18.19-111111.svg)](VERSION)
-[![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
+[![Version](https://img.shields.io/badge/version-2.18.31-111111.svg)](VERSION)
+[![Skills](https://img.shields.io/badge/Skills-32-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
 **Supported in Doubao, WorkBuddy, Claude Code, Codex, and other Agents that support Skills.**
 
-Created by [dontbesilent](https://x.com/dontbesilent), dbskill distills 4,176 structured knowledge atoms and 30 directly callable Skills from 16,152 public posts.
+Created by [dontbesilent](https://x.com/dontbesilent), dbskill distills 4,176 structured knowledge atoms and 32 directly callable business Skills from 16,152 public posts.
 
 [Quick start](#quick-start) · [Install](#install) · [Capabilities](#capabilities) · [Full guide](docs/新手入门.md) · [Releases](https://github.com/dontbesilent2025/dbskill/releases)
 
-![dbskill routing map](docs/skill-link-map.svg)
+![dbskill composition map](docs/skill-link-map.svg)
 
 ## What dbskill helps you solve
 
-You do not need to learn a complex methodology first, or know which tool to invoke. Give `/dbs` your current business situation, material, decision, or blocker. It selects the relevant Skill from the conversation context.
+You do not need to learn a complex methodology first, or know which tool to invoke. Give `/dbs` your current business situation, material, decision, or blocker. It decides whether one Skill is sufficient; complex tasks can use one lead Skill and up to two supporting Skills.
 
 | Situation | What you get |
 | --- | --- |
@@ -37,7 +37,7 @@ After installation, enter this in your Agent:
 Help me determine whether the issue is the product, pricing, or customer segment.
 ```
 
-`/dbs` reads the current conversation and selects an appropriate path. Add new facts or feedback after a round, then call `/dbs` again to determine what to work on next.
+`/dbs` reads the current conversation, explains its selection, and generates a prompt you can send directly. Add new facts or feedback after a round, then call `/dbs` again to reassess the current task.
 
 When you already know the task, call a Skill directly:
 
@@ -65,7 +65,7 @@ When you already know the task, call a Skill directly:
 | Turn a local folder into a knowledge base | `/dbs-knowledge` | Knowledge navigation, version rules, and ready-to-use prompts |
 | Audit local Skill risks | `/dbs-skill-cleaner` | Risk report and confirmed isolation |
 
-See the [full guide and Skill directory](docs/新手入门.md#skill-全目录) for all 30 Skills, examples, and workflows.
+See the [full guide and Skill directory](docs/新手入门.md#skill-全目录) for all 32 business Skills, examples, and workflows.
 
 ## Install
 
@@ -88,7 +88,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-The `dbs` plugin includes all 30 public business Skills plus the `dbs-update` system entry. Claude Code namespaces plugin Skills: use `/dbs:dbs` for the main router and commands such as `/dbs:dbs-diagnosis` for a specific capability.
+The `dbs` plugin includes all 32 public business Skills plus the `dbs-update` system entry. Claude Code namespaces plugin Skills: use `/dbs:dbs` for the main entry and commands such as `/dbs:dbs-diagnosis` for a specific capability.
 
 To install only one capability, choose its marketplace plugin, for example `claude plugin install dbs-diagnosis@dontbesilent-skills`.
 
@@ -109,11 +109,13 @@ This syncs the official dbskill and does not modify records, reports, or decisio
 ```text
 A real task
    ↓
-/dbs reads context and selects the current entry point
+/dbs reads context and decides between one Skill or a composition
    ↓
-One Skill produces a diagnosis, output, or record
+It generates a directly usable task prompt
    ↓
-Add results and feedback, then decide the next step
+The selected Skills deliver one unified result
+   ↓
+Add results and feedback, then reassess the task
 ```
 
 ## Knowledge base and local records

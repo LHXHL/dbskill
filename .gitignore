@@ -35,6 +35,10 @@ autoresearch/
 # beta skill：本地私有，不发 GitHub
 skills/dbs-beta-*/
 
+# private skill：长期仅限本地，不发 GitHub
+skills/dbs-private-*/
+/dbs-private-*
+
 # 本机桥接与 Python 缓存
 scripts/setup-symlinks.sh
 tools/__pycache__/

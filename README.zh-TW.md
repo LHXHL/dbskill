@@ -4,21 +4,21 @@
 
 > 給創業者與內容創作者使用的中文 AI Skills 工具箱。把真實的商業、內容與行動問題交給 Agent，取得清晰判斷與可以立即執行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.19-111111.svg)](VERSION)
-[![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
+[![Version](https://img.shields.io/badge/version-2.18.31-111111.svg)](VERSION)
+[![Skills](https://img.shields.io/badge/Skills-32-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
 **支援：豆包、WorkBuddy、Claude Code、Codex，以及其他支援 Skills 的 Agent。**
 
-dbskill 由 [dontbesilent](https://x.com/dontbesilent) 建立。它從 16,152 則公開貼文中，整理出 4,176 個結構化知識原子與 30 個可直接呼叫的 Skills。
+dbskill 由 [dontbesilent](https://x.com/dontbesilent) 建立。它從 16,152 則公開貼文中，整理出 4,176 個結構化知識原子與 32 個可直接呼叫的正式業務 Skill。
 
 [快速開始](#快速開始) · [安裝](#安裝) · [能力一覽](#能力一覽) · [完整指南](docs/新手入门.md) · [更新紀錄](https://github.com/dontbesilent2025/dbskill/releases)
 
-![dbskill 動態路由圖](docs/skill-link-map.svg)
+![dbskill 動態編排圖](docs/skill-link-map.svg)
 
 ## dbskill 可以處理什麼問題
 
-你不需要先學一套複雜方法，也不需要知道該呼叫哪個工具。把眼前的商業處境、材料、選擇或卡點交給 `/dbs`，它會依照對話內容選擇適合的 Skill。
+你不需要先學一套複雜方法，也不需要知道該呼叫哪個工具。把眼前的商業處境、材料、選擇或卡點交給 `/dbs`，它會判斷單個 Skill 是否足夠；複雜任務可以編排 1 個主 Skill 和最多 2 個輔助 Skill。
 
 | 真實處境 | 你會得到 |
 | --- | --- |
@@ -37,7 +37,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 建立。它從 16,152 �
 我需要判斷問題出在產品、定價，還是我找錯了客戶。
 ```
 
-`/dbs` 會讀取目前的對話資訊，選擇合適的分析路徑。完成一輪後，補充新的事實或回饋，再輸入 `/dbs`，它會判斷目前該推進什麼。
+`/dbs` 會讀取目前的對話資訊，說明推薦理由，並生成一段可以直接繼續發送的提示詞。完成一輪後，補充新的事實或回饋，再輸入 `/dbs`，它會重新判斷目前任務需要單項還是組合。
 
 已經知道需求時，可以直接呼叫具體 Skill：
 
@@ -64,7 +64,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 建立。它從 16,152 �
 | 把本機資料夾變成知識庫 | `/dbs-knowledge` | 知識庫導航、版本規則與可直接使用的提問入口 |
 | 審查本機 Skill 風險 | `/dbs-skill-cleaner` | 風險報告與確認後隔離 |
 
-完整的 30 個 Skill、適用時機、輸入範例與動態導覽方式，見[新手入門與 Skill 全目錄](docs/新手入门.md#skill-全目录)。
+完整的 32 個正式業務 Skill、適用時機、輸入範例與動態編排方式，見[新手入門與 Skill 全目錄](docs/新手入门.md#skill-全目录)。
 
 ## 安裝
 
@@ -87,7 +87,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-這個 `dbs` 外掛包含 30 個正式業務 Skill 和 1 個 `dbs-update` 系統更新入口。Claude Code 會為外掛 Skill 加上命名空間：主入口使用 `/dbs:dbs`，具體能力例如 `/dbs:dbs-diagnosis`。
+這個 `dbs` 外掛包含 32 個正式業務 Skill 和 1 個 `dbs-update` 系統更新入口。Claude Code 會為外掛 Skill 加上命名空間：主入口使用 `/dbs:dbs`，具體能力例如 `/dbs:dbs-diagnosis`。
 
 只想安裝一個能力時，可以在外掛市集中選擇對應外掛，例如 `claude plugin install dbs-diagnosis@dontbesilent-skills`。
 
@@ -108,11 +108,13 @@ claude plugin install dbs@dontbesilent-skills
 ```text
 真實任務
    ↓
-/dbs 讀取上下文並選擇目前入口
+/dbs 讀取上下文並判斷單項或主輔組合
    ↓
-一個 Skill 完成診斷、產出或紀錄
+生成一段可以直接繼續發送的提示詞
    ↓
-補充結果與回饋，再決定下一步
+入選 Skill 交付一份統一結果
+   ↓
+補充結果與回饋，再重新編排
 ```
 
 ## 知識庫與本機紀錄

@@ -1,5 +1,5 @@
 {
-  "version": "2.18.30",
-  "notice": "现在可以把反复问题制作成可安装、可分级验证的单个 Skill",
-  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.30"
+  "version": "2.18.31",
+  "notice": "现在会按任务复杂度选择单 Skill 或主辅组合，并生成可直接发送的执行提示词",
+  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.31"
 }
