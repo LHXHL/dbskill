@@ -21,7 +21,7 @@ group_for() {
   case "$1" in
     dbs|dbs-update)
       echo "必装入口" ;;
-    dbs-diagnosis|dbs-standard-answer|dbs-deconstruct|dbs-goal|dbs-good-question|dbs-jtbd|dbs-slowisfast|dbs-action)
+    dbs-diagnosis|dbs-standard-answer|dbs-deconstruct|dbs-goal|dbs-good-question|dbs-jtbd|dbs-action)
       echo "看商业问题" ;;
     dbs-content|dbs-content-risk-check|dbs-benchmark|dbs-hook|dbs-xhs-title|dbs-ai-check|dbs-wechat-html|dbs-spread|dbs-resonate|dbs-script-flow)
       echo "做内容" ;;
@@ -164,7 +164,6 @@ Trae Solo 一个 zip 装一个 skill。本压缩包按使用场景分了几个�
 - **dbs-goal** — 目标清晰化（把「我想做个人 IP」这种愿望语法审计成可检查的交付物）
 - **dbs-good-question** — 好问题生成器（把模糊问题改成 Agent 可推理、可验证的问题说明书）
 - **dbs-jtbd** — JTBD 任务澄清（识别情境中的进展、切换力量与选择标准）
-- **dbs-slowisfast** — 慢就是快（找看起来更慢但长期更快的方法）
 - **dbs-action** — 执行力诊断（阿德勒心理学，「知道该做但就是不做」）
 
 ## 做内容
