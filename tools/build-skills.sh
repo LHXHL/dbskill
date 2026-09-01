@@ -23,7 +23,7 @@ group_for() {
       echo "必装入口" ;;
     dbs-diagnosis|dbs-standard-answer|dbs-deconstruct|dbs-goal|dbs-good-question|dbs-jtbd|dbs-action)
       echo "看商业问题" ;;
-    dbs-content|dbs-content-risk-check|dbs-benchmark|dbs-hook|dbs-xhs-title|dbs-ai-check|dbs-wechat-html|dbs-spread|dbs-resonate|dbs-script-flow)
+    dbs-content|dbs-content-risk-check|dbs-benchmark|dbs-hook|dbs-xhs-title|dbs-ai-check|dbs-wechat-html|dbs-spread|dbs-resonate|dbs-script-flow|dbs-video-extract)
       echo "做内容" ;;
     dbs-content-system)
       echo "进阶-内容工程" ;;
@@ -120,8 +120,11 @@ import zipfile
 source_dir, archive_path = sys.argv[1], sys.argv[2]
 
 with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-    for root, _, files in os.walk(source_dir):
+    for root, dirs, files in os.walk(source_dir):
+        dirs[:] = [dirname for dirname in dirs if dirname != "__pycache__"]
         for filename in files:
+            if filename.endswith((".pyc", ".pyo")):
+                continue
             path = os.path.join(root, filename)
             archive.write(path, os.path.relpath(path, source_dir))
 PY
@@ -177,6 +180,7 @@ Trae Solo 一个 zip 装一个 skill。本压缩包按使用场景分了几个�
 - **dbs-wechat-html** — 微信公众号 HTML 生成（15 种经典风格，支持预览和全量生成）
 - **dbs-spread** — 传播心理解码
 - **dbs-resonate** — 文稿共鸣诊断
+- **dbs-video-extract** — 短视频信息提取（查询作品／账号数据并生成语音文字稿）
 
 ## 进阶-内容工程
 

@@ -1,5 +1,5 @@
 {
-  "version": "2.18.33",
-  "notice": "按需精简安装包，移除 /dbs-skill-cleaner 及其审查与隔离入口",
-  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.33"
+  "version": "2.18.34",
+  "notice": "新增短视频数据与文字稿提取，缺少凭证时提供购买和安全配置引导",
+  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.34"
 }

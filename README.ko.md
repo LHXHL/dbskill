@@ -4,15 +4,15 @@
 
 > 창업가와 콘텐츠 제작자를 위한 중국어 AI Skills 도구 상자입니다. 실제 비즈니스, 콘텐츠, 실행 문제를 Agent 에게 전달하면 명확한 판단과 바로 시작할 수 있는 다음 행동을 얻을 수 있습니다.
 
-[![Version](https://img.shields.io/badge/version-2.18.33-111111.svg)](VERSION)
-[![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
+[![Version](https://img.shields.io/badge/version-2.18.34-111111.svg)](VERSION)
+[![Skills](https://img.shields.io/badge/Skills-31-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
 **豆包, WorkBuddy, Claude Code, Codex 및 Skills 를 지원하는 다른 Agent 에서 사용할 수 있습니다.**
 
-dbskill 은 [dontbesilent](https://x.com/dontbesilent)가 만들었습니다. 공개 게시물 16,152 개에서 4,176 개의 구조화 지식 원자와 직접 호출할 수 있는 정식 비즈니스 Skill 30 개를 정리했습니다.
+dbskill 은 [dontbesilent](https://x.com/dontbesilent)가 만들었습니다. 공개 게시물 16,152 개에서 4,176 개의 구조화 지식 원자와 직접 호출할 수 있는 정식 비즈니스 Skill 31 개를 정리했습니다.
 
-**v2.18.33:** `/dbs-skill-cleaner` 와 감사·격리 진입점을 제거했습니다. 패키지에는 정식 비즈니스 Skill 30 개가 포함됩니다.
+**v2.18.34:** `/dbs-video-extract` 를 추가했습니다. 숏폼 동영상 데이터와 음성 원고를 추출하며, 외부 서비스 이용 권한이 없을 때 구매와 안전한 설정을 안내합니다.
 
 [빠른 시작](#빠른-시작) · [설치](#설치) · [기능](#기능-목록) · [전체 가이드](docs/新手入门.md) · [릴리스](https://github.com/dontbesilent2025/dbskill/releases)
 
@@ -57,6 +57,7 @@ dbskill 은 [dontbesilent](https://x.com/dontbesilent)가 만들었습니다. �
 | 비즈니스, 상품, 가격, 고객 판단 | `/dbs-diagnosis` | 진단, 위험, 검증 계획 |
 | 벤치마크 탐색과 연구 | `/dbs-benchmark` | 대상 목록과 연구 프레임 |
 | 주제, 콘텐츠, 제목, 영상 제작 | `/dbs-content`, `/dbs-hook`, `/dbs-xhs-title` | 방향과 게시용 원고 |
+| 숏폼 동영상 데이터와 음성 원고 추출 | `/dbs-video-extract` | 작품／계정 데이터와 작성자·제목별 Markdown 원고 |
 | 게시 전 콘텐츠 위험 점검 | `/dbs-content-risk-check` | 자동 심사 신호, 내용 문제, 최소 수정안 |
 | 공감, 논리, 확산성 점검 | `/dbs-resonate`, `/dbs-script-flow`, `/dbs-spread` | 우선순위가 있는 수정안 |
 | 개념, 목표, 질문 명확화 | `/dbs-deconstruct`, `/dbs-goal`, `/dbs-good-question` | 검증 가능한 정의와 목표 |
@@ -65,7 +66,7 @@ dbskill 은 [dontbesilent](https://x.com/dontbesilent)가 만들었습니다. �
 | 콘텐츠 자산과 다중 Agent 환경 구축 | `/dbs-content-system`, `/dbs-agent-migration`, `/dbs-install-skill` | 로컬 프로젝트와 설치 계획 |
 | 로컬 폴더를 지식 베이스로 전환 | `/dbs-knowledge` | 지식 탐색, 버전 규칙, 바로 쓸 수 있는 질문 예시 |
 
-정식 비즈니스 Skill 30 개의 전체 목록, 입력 예시, 사용 흐름은 [전체 가이드](docs/新手入门.md#skill-全目录)에서 확인하세요.
+정식 비즈니스 Skill 31 개의 전체 목록, 입력 예시, 사용 흐름은 [전체 가이드](docs/新手入门.md#skill-全目录)에서 확인하세요.
 
 ## 설치
 
@@ -88,7 +89,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-`dbs` 플러그인에는 정식 비즈니스 Skill 30 개와 `dbs-update` 시스템 항목 1 개가 포함됩니다. Claude Code 는 플러그인 Skill 에 네임스페이스를 추가합니다. 메인 진입점은 `/dbs:dbs`, 개별 기능은 `/dbs:dbs-diagnosis`와 같은 명령을 사용합니다.
+`dbs` 플러그인에는 정식 비즈니스 Skill 31 개와 `dbs-update` 시스템 항목 1 개가 포함됩니다. Claude Code 는 플러그인 Skill 에 네임스페이스를 추가합니다. 메인 진입점은 `/dbs:dbs`, 개별 기능은 `/dbs:dbs-diagnosis`와 같은 명령을 사용합니다.
 
 기능 하나만 설치하려면 해당 마켓플레이스 플러그인을 선택하세요. 예: `claude plugin install dbs-diagnosis@dontbesilent-skills`
 

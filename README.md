@@ -4,15 +4,15 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.33-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.34-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
 **支持：豆包、WorkBuddy、Claude Code、Codex，以及其他支持 Skills 的 Agent。**
 
-dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 30 个可直接调用的 Skills。
+dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 31 个可直接调用的 Skills。
 
-**v2.18.33 更新：** 移除 `/dbs-skill-cleaner` 及其审查与隔离入口，安装包保留 30 个正式业务 Skill。
+**v2.18.34 更新：** 新增 `/dbs-video-extract`，可提取短视频数据与语音文字稿；缺少外部服务凭证时，会引导购买并安全配置。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新日志](https://github.com/dontbesilent2025/dbskill/releases)
 
@@ -60,6 +60,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 | 找对标并提炼可学习的部分 | `/dbs-benchmark` | 对标筛选与研究框架 |
 | 先挖掘相关领域、作者和可信理论，再研究历史同构答案 | `/dbs-standard-answer` | 理论锚点、案例矩阵、条件性答案与失效边界 |
 | 做选题、内容、标题与短视频 | `/dbs-content`、`/dbs-hook`、`/dbs-xhs-title` | 内容方向与可发布文案 |
+| 提取短视频数据和语音文字稿 | `/dbs-video-extract` | 作品／账号数据、按作者和标题归档的 Markdown 文字稿 |
 | 发布前检查敏感词、导流、广告与受限内容 | `/dbs-content-risk-check` | 机器审核信号、内容实质问题与最小修改动作 |
 | 检查文稿共鸣、逻辑与传播性 | `/dbs-resonate`、`/dbs-script-flow`、`/dbs-spread` | 修改意见与优先级 |
 | 澄清概念、目标和问题 | `/dbs-deconstruct`、`/dbs-goal`、`/dbs-good-question` | 可验证的定义与行动目标 |
@@ -69,7 +70,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 | 建立内容资产与多端 Agent 工作台 | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | 本地工程、主题地图与安装方案 |
 | 把反复问题制作成单个 Skill | `/dbs-skill-maker` | 可安装 Skill、分级验证结果与可选 GitHub 发布仓库 |
 
-完整的 30 个 Skill、适用时机、输入示例和动态导航方式，见 [新手入门与 Skill 全目录](docs/新手入门.md#skill-全目录)。
+完整的 31 个 Skill、适用时机、输入示例和动态导航方式，见 [新手入门与 Skill 全目录](docs/新手入门.md#skill-全目录)。
 
 ## 安装
 
@@ -92,7 +93,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-这个 `dbs` 插件包含 30 个正式业务 Skill 和 1 个 `dbs-update` 系统更新入口。Claude Code 会为插件 Skill 添加命名空间：主入口使用 `/dbs:dbs`，具体能力例如 `/dbs:dbs-diagnosis`。
+这个 `dbs` 插件包含 31 个正式业务 Skill 和 1 个 `dbs-update` 系统更新入口。Claude Code 会为插件 Skill 添加命名空间：主入口使用 `/dbs:dbs`，具体能力例如 `/dbs:dbs-diagnosis`。
 
 只想安装一个能力时，可以在插件市场中选择对应插件，例如 `claude plugin install dbs-diagnosis@dontbesilent-skills`。
 
