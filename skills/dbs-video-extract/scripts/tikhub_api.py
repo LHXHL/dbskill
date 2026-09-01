@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""TikHub 只读 API 客户端：账户检查、抖音作品解析和受限 GET。"""
+"""TikHub 只读 API 客户端：账户检查、多平台作品解析和受限 GET。"""
 
 from __future__ import annotations
 
@@ -17,7 +17,11 @@ from typing import Any
 
 
 DEFAULT_BASE_URL = "https://api.tikhub.dev"
-DOUYIN_MCP_URL = "https://mcp.tikhub.io/douyin/mcp"
+MCP_URLS = {
+    "douyin": "https://mcp.tikhub.io/douyin/mcp",
+    "xiaohongshu": "https://mcp.tikhub.io/xiaohongshu/mcp",
+    "wechat": "https://mcp.tikhub.io/wechat/mcp",
+}
 MCP_PROTOCOL_VERSION = "2024-11-05"
 DEFAULT_API_KEYS_FILE = Path.home() / ".config" / "dbs" / "API_Keys.md"
 KEYCHAIN_SERVICE = "dbs-tikhub-api-key"
@@ -37,7 +41,7 @@ def parse_args() -> argparse.Namespace:
         default=os.environ.get("TIKHUB_BASE_URL", DEFAULT_BASE_URL),
         help=f"TikHub 基础域名，默认 {DEFAULT_BASE_URL}",
     )
-    parser.add_argument("--timeout", type=float, default=30.0, help="请求超时秒数")
+    parser.add_argument("--timeout", type=float, default=15.0, help="请求超时秒数")
     parser.add_argument("--output", type=Path, help="把 JSON 保存到指定文件")
 
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -57,6 +61,26 @@ def parse_args() -> argparse.Namespace:
         help="作品链接默认 App V3 无有效数据时回退 Web；用户主页不使用此参数",
     )
     douyin.add_argument(
+        "--raw", action="store_true", help="返回完整 TikHub 响应，而非精简摘要"
+    )
+
+    xiaohongshu = subparsers.add_parser(
+        "xiaohongshu-link",
+        help="通过 TikHub MCP 解析小红书视频笔记链接",
+    )
+    xiaohongshu.add_argument("input", nargs="?", help="小红书链接或完整分享文案")
+    xiaohongshu.add_argument("--stdin", action="store_true", help="从标准输入读取分享文案")
+    xiaohongshu.add_argument(
+        "--raw", action="store_true", help="返回完整 TikHub 响应，而非精简摘要"
+    )
+
+    wechat = subparsers.add_parser(
+        "wechat-link",
+        help="通过 TikHub MCP 解析微信视频号作品链接",
+    )
+    wechat.add_argument("input", nargs="?", help="视频号链接或完整分享文案")
+    wechat.add_argument("--stdin", action="store_true", help="从标准输入读取分享文案")
+    wechat.add_argument(
         "--raw", action="store_true", help="返回完整 TikHub 响应，而非精简摘要"
     )
 
@@ -188,6 +212,8 @@ def request_json(
         raise TikHubError(f"HTTP {error.code}：{detail}") from error
     except urllib.error.URLError as error:
         raise TikHubError(f"网络请求失败：{error.reason}") from error
+    except TimeoutError as error:
+        raise TikHubError("网络请求超时。") from error
 
     try:
         data = json.loads(raw)
@@ -212,11 +238,38 @@ def parse_sse_json(body: str) -> dict[str, Any]:
     return data
 
 
+def read_mcp_response(response: Any, allow_empty: bool = False) -> dict[str, Any]:
+    content_type = str(response.headers.get("Content-Type", "")).lower()
+    if "text/event-stream" not in content_type:
+        raw = response.read().decode("utf-8")
+        if allow_empty and not raw.strip():
+            return {}
+        return parse_sse_json(raw)
+
+    data_lines: list[str] = []
+    while True:
+        raw_line = response.readline()
+        if not raw_line:
+            break
+        line = raw_line.decode("utf-8", errors="replace").rstrip("\r\n")
+        if line.startswith("data:"):
+            data_lines.append(line[5:].lstrip())
+        elif not line and data_lines:
+            return parse_sse_json("\n".join(data_lines))
+    if data_lines:
+        return parse_sse_json("\n".join(data_lines))
+    if allow_empty:
+        return {}
+    raise TikHubError("MCP SSE 响应中没有 data 事件。")
+
+
 def mcp_post(
     api_key: str,
     payload: dict[str, Any],
     timeout: float,
     session_id: str = "",
+    platform: str = "douyin",
+    allow_empty: bool = False,
 ) -> tuple[str, dict[str, Any]]:
     headers = {
         "Accept": "application/json, text/event-stream",
@@ -227,25 +280,29 @@ def mcp_post(
     if session_id:
         headers["Mcp-Session-Id"] = session_id
     request = urllib.request.Request(
-        DOUYIN_MCP_URL,
+        MCP_URLS.get(platform, ""),
         data=json.dumps(payload).encode("utf-8"),
         method="POST",
         headers=headers,
     )
     try:
         with urllib.request.urlopen(request, timeout=max(1.0, timeout)) as response:
-            raw = response.read().decode("utf-8")
             returned_session = response.headers.get("Mcp-Session-Id", "")
+            parsed_response = read_mcp_response(response, allow_empty)
     except urllib.error.HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:1000]
         detail = detail.replace(api_key, "[REDACTED]")
         raise TikHubError(f"MCP HTTP {error.code}：{detail}") from error
     except urllib.error.URLError as error:
         raise TikHubError(f"MCP 网络请求失败：{error.reason}") from error
-    return returned_session, parse_sse_json(raw)
+    except TimeoutError as error:
+        raise TikHubError(f"TikHub {platform} MCP 请求超时。") from error
+    return returned_session, parsed_response
 
 
-def mcp_initialize(api_key: str, timeout: float) -> str:
+def mcp_initialize(api_key: str, timeout: float, platform: str = "douyin") -> str:
+    if platform not in MCP_URLS:
+        raise TikHubError(f"暂不支持 TikHub MCP 平台：{platform}")
     session_id, response = mcp_post(
         api_key,
         {
@@ -259,11 +316,24 @@ def mcp_initialize(api_key: str, timeout: float) -> str:
             },
         },
         timeout,
+        platform=platform,
     )
     if not session_id:
         raise TikHubError("MCP initialize 成功，但响应缺少 Mcp-Session-Id。")
     if "error" in response:
         raise TikHubError(f"MCP initialize 失败：{response['error']}")
+    mcp_post(
+        api_key,
+        {
+            "jsonrpc": "2.0",
+            "method": "notifications/initialized",
+            "params": {},
+        },
+        timeout,
+        session_id,
+        platform,
+        allow_empty=True,
+    )
     return session_id
 
 
@@ -272,8 +342,9 @@ def mcp_tool_call(
     tool_name: str,
     arguments: dict[str, Any],
     timeout: float,
+    platform: str = "douyin",
 ) -> dict[str, Any]:
-    session_id = mcp_initialize(api_key, timeout)
+    session_id = mcp_initialize(api_key, timeout, platform)
     _, response = mcp_post(
         api_key,
         {
@@ -284,6 +355,7 @@ def mcp_tool_call(
         },
         timeout,
         session_id,
+        platform,
     )
     if "error" in response:
         raise TikHubError(f"MCP tools/call 失败：{response['error']}")
@@ -377,7 +449,7 @@ def classify_douyin_url(resolved_url: str) -> tuple[str, str]:
     raise TikHubError(f"暂时无法识别抖音链接类型：{parsed.path}")
 
 
-def collect_douyin_input(args: argparse.Namespace) -> str:
+def collect_link_input(args: argparse.Namespace, platform_name: str) -> str:
     values: list[str] = []
     if args.input:
         values.append(args.input.strip())
@@ -386,10 +458,23 @@ def collect_douyin_input(args: argparse.Namespace) -> str:
         if stdin_value:
             values.append(stdin_value)
     if not values:
-        raise TikHubError("没有收到抖音链接或分享文案。")
+        raise TikHubError(f"没有收到{platform_name}链接或分享文案。")
     if len(values) > 1:
-        raise TikHubError("请只提供 1 条抖音链接或分享文案。")
+        raise TikHubError(f"请只提供 1 条{platform_name}链接或分享文案。")
     return extract_share_url(values[0])
+
+
+def detect_platform(url: str) -> str:
+    hostname = (urllib.parse.urlparse(url).hostname or "").lower()
+    if hostname == "douyin.com" or hostname.endswith(".douyin.com"):
+        return "douyin"
+    if hostname in {"xhslink.cn", "xhslink.com"} or hostname.endswith(
+        ".xiaohongshu.com"
+    ) or hostname == "xiaohongshu.com":
+        return "xiaohongshu"
+    if hostname == "weixin.qq.com" or hostname.endswith(".weixin.qq.com"):
+        return "wechat"
+    return ""
 
 
 def has_video_payload(response: dict[str, Any]) -> bool:
@@ -409,6 +494,11 @@ def has_video_payload(response: dict[str, Any]) -> bool:
 
 def api_response_success(response: dict[str, Any]) -> bool:
     return response.get("code") == 200 and isinstance(response.get("data"), dict)
+
+
+def response_charged(response: dict[str, Any]) -> bool:
+    messages = f"{response.get('message', '')} {response.get('message_zh', '')}".lower()
+    return "charge" in messages or "计费" in messages
 
 
 def summarize_user_response(response: dict[str, Any]) -> dict[str, Any]:
@@ -434,7 +524,7 @@ def summarize_user_response(response: dict[str, Any]) -> dict[str, Any]:
         "mix_count": user.get("mix_count"),
         "live_status": user.get("live_status"),
         "avatar_url": avatar_urls[0] if isinstance(avatar_urls, list) and avatar_urls else None,
-        "charged": "charge" in str(response.get("message", "")).lower(),
+        "charged": response_charged(response),
     }
 
 
@@ -456,7 +546,76 @@ def summarize_video_response(response: dict[str, Any]) -> dict[str, Any]:
             author.get("nickname") if isinstance(author, dict) else None
         ),
         "statistics": statistics if isinstance(statistics, dict) else None,
-        "charged": "charge" in str(response.get("message", "")).lower(),
+        "charged": response_charged(response),
+    }
+
+
+def summarize_xiaohongshu_video_response(
+    response: dict[str, Any],
+) -> dict[str, Any]:
+    outer_data = response.get("data")
+    notes = outer_data.get("data") if isinstance(outer_data, dict) else None
+    item = notes[0] if isinstance(notes, list) and notes else None
+    if not isinstance(item, dict):
+        return {"ok": False, "code": response.get("code"), "response": response}
+    user = item.get("user")
+    video_info = item.get("video_info_v2")
+    capa = video_info.get("capa") if isinstance(video_info, dict) else None
+    share_info = item.get("share_info")
+    tags = item.get("hash_tag")
+    return {
+        "ok": True,
+        "code": response.get("code"),
+        "video_id": item.get("id"),
+        "description": item.get("desc") or item.get("title"),
+        "title": item.get("title"),
+        "author": user.get("nickname") if isinstance(user, dict) else None,
+        "author_id": user.get("id") if isinstance(user, dict) else None,
+        "red_id": user.get("red_id") if isinstance(user, dict) else None,
+        "published_at": item.get("time"),
+        "ip_location": item.get("ip_location"),
+        "duration_seconds": capa.get("duration") if isinstance(capa, dict) else None,
+        "statistics": {
+            "like_count": item.get("liked_count"),
+            "collect_count": item.get("collected_count"),
+            "comment_count": item.get("comments_count"),
+            "share_count": item.get("shared_count"),
+            "view_count": item.get("view_count"),
+        },
+        "tags": [
+            tag.get("name")
+            for tag in tags
+            if isinstance(tag, dict) and tag.get("name")
+        ] if isinstance(tags, list) else [],
+        "cover_url": share_info.get("image") if isinstance(share_info, dict) else None,
+        "charged": response_charged(response),
+    }
+
+
+def summarize_wechat_video_response(response: dict[str, Any]) -> dict[str, Any]:
+    item = response.get("data")
+    if not isinstance(item, dict) or not item:
+        return {"ok": False, "code": response.get("code"), "response": response}
+    media = item.get("media")
+    return {
+        "ok": True,
+        "code": response.get("code"),
+        "video_id": item.get("id"),
+        "description": item.get("description") or item.get("title"),
+        "title": item.get("title") or item.get("short_title"),
+        "author": item.get("nickname"),
+        "author_id": item.get("username"),
+        "published_at": item.get("create_time"),
+        "duration_seconds": media.get("duration") if isinstance(media, dict) else None,
+        "statistics": {
+            "read_count": item.get("read_count"),
+            "like_count": item.get("like_count"),
+            "collect_count": item.get("fav_count"),
+            "comment_count": item.get("comment_count"),
+            "share_count": item.get("forward_count"),
+        },
+        "cover_url": media.get("cover_url") if isinstance(media, dict) else None,
+        "charged": response_charged(response),
     }
 
 
@@ -528,6 +687,75 @@ def fetch_douyin_link_mcp(
     }
 
 
+def fetch_xiaohongshu_video_mcp(
+    api_key: str,
+    share_url: str,
+    timeout: float,
+    raw: bool,
+) -> dict[str, Any]:
+    tool = "xiaohongshu_app_v2_get_video_note_detail"
+    response = mcp_tool_call(
+        api_key,
+        tool,
+        {"share_text": share_url},
+        timeout,
+        platform="xiaohongshu",
+    )
+    summary = summarize_xiaohongshu_video_response(response)
+    return {
+        "ok": bool(summary.get("ok")),
+        "transport": "mcp",
+        "platform": "xiaohongshu",
+        "link_type": "video",
+        "tool": tool,
+        "response": response if raw else summary,
+    }
+
+
+def fetch_wechat_video_mcp(
+    api_key: str,
+    share_url: str,
+    timeout: float,
+    raw: bool,
+) -> dict[str, Any]:
+    tool = "wechat_channels_v2_fetch_video_detail"
+    response = mcp_tool_call(
+        api_key,
+        tool,
+        {"share_url": share_url, "raw": False},
+        timeout,
+        platform="wechat",
+    )
+    summary = summarize_wechat_video_response(response)
+    return {
+        "ok": bool(summary.get("ok")),
+        "transport": "mcp",
+        "platform": "wechat",
+        "link_type": "video",
+        "tool": tool,
+        "response": response if raw else summary,
+    }
+
+
+def fetch_supported_link_mcp(
+    api_key: str,
+    share_url: str,
+    source: str,
+    timeout: float,
+    raw: bool,
+) -> dict[str, Any]:
+    platform = detect_platform(share_url)
+    if platform == "douyin":
+        result = fetch_douyin_link_mcp(api_key, share_url, source, timeout, raw)
+        result.setdefault("platform", "douyin")
+        return result
+    if platform == "xiaohongshu":
+        return fetch_xiaohongshu_video_mcp(api_key, share_url, timeout, raw)
+    if platform == "wechat":
+        return fetch_wechat_video_mcp(api_key, share_url, timeout, raw)
+    raise TikHubError("当前 TikHub 数据解析只支持抖音、小红书和微信视频号链接。")
+
+
 def emit_json(data: dict[str, Any], output: Path | None) -> None:
     rendered = json.dumps(data, ensure_ascii=False, indent=2)
     if output is None:
@@ -551,8 +779,22 @@ def main() -> int:
         elif args.command in ("douyin-link", "douyin-video"):
             result = fetch_douyin_link_mcp(
                 api_key,
-                collect_douyin_input(args),
+                collect_link_input(args, "抖音"),
                 args.source,
+                args.timeout,
+                args.raw,
+            )
+        elif args.command == "xiaohongshu-link":
+            result = fetch_xiaohongshu_video_mcp(
+                api_key,
+                collect_link_input(args, "小红书"),
+                args.timeout,
+                args.raw,
+            )
+        elif args.command == "wechat-link":
+            result = fetch_wechat_video_mcp(
+                api_key,
+                collect_link_input(args, "视频号"),
                 args.timeout,
                 args.raw,
             )

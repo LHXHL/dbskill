@@ -4,7 +4,7 @@
 
 > 給創業者與內容創作者使用的中文 AI Skills 工具箱。把真實的商業、內容與行動問題交給 Agent，取得清晰判斷與可以立即執行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.34-111111.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.35-111111.svg)](VERSION)
 [![Skills](https://img.shields.io/badge/Skills-31-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
@@ -12,7 +12,7 @@
 
 dbskill 由 [dontbesilent](https://x.com/dontbesilent) 建立。它從 16,152 則公開貼文中，整理出 4,176 個結構化知識原子與 31 個可直接呼叫的正式業務 Skill。
 
-**v2.18.34 更新：** 新增 `/dbs-video-extract`，可提取短影片資料與語音文字稿；缺少外部服務憑證時，會引導購買並安全設定。
+**v2.18.35 更新：** `/dbs-video-extract` 新增小紅書與微信影片號資料查詢，並將單次資料等待限制為 15 秒。
 
 [快速開始](#快速開始) · [安裝](#安裝) · [能力一覽](#能力一覽) · [完整指南](docs/新手入门.md) · [更新紀錄](https://github.com/dontbesilent2025/dbskill/releases)
 

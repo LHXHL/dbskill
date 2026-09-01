@@ -7,7 +7,6 @@ import argparse
 import json
 import os
 import sys
-import urllib.parse
 from pathlib import Path
 from typing import Any
 
@@ -89,11 +88,11 @@ def parse_args() -> argparse.Namespace:
         "--source",
         choices=("auto", "app", "web"),
         default="auto",
-        help="TikHub 抖音作品数据源",
+        help="TikHub 抖音作品数据源；小红书与视频号忽略此参数",
     )
     parser.add_argument("--raw-data", action="store_true", help="保留 TikHub 完整响应")
     parser.add_argument(
-        "--data-timeout", type=float, default=30.0, help="TikHub 请求超时秒数"
+        "--data-timeout", type=float, default=15.0, help="TikHub 请求超时秒数"
     )
     parser.add_argument(
         "--poll-interval", type=float, default=2.0, help="轻抖轮询间隔秒数"
@@ -117,11 +116,6 @@ def collect_input(args: argparse.Namespace) -> str:
     if len(values) > 1:
         raise CombinedError("请只提供 1 条短视频链接或分享文案。")
     return values[0]
-
-
-def is_douyin_url(url: str) -> bool:
-    hostname = (urllib.parse.urlparse(url).hostname or "").lower()
-    return hostname == "douyin.com" or hostname.endswith(".douyin.com")
 
 
 def credential_summary() -> dict[str, Any]:
@@ -189,14 +183,14 @@ def run_data(user_input: str, args: argparse.Namespace) -> dict[str, Any]:
         share_url = tikhub.extract_share_url(user_input)
     except tikhub.TikHubError as error:
         return {"ok": False, "error": str(error)}
-    if not is_douyin_url(share_url):
+    if not tikhub.detect_platform(share_url):
         return {
             "ok": None,
             "skipped": True,
-            "reason": "当前 TikHub 专用数据解析只支持抖音链接。",
+            "reason": "当前 TikHub 数据解析只支持抖音、小红书和微信视频号链接。",
         }
     try:
-        return tikhub.fetch_douyin_link_mcp(
+        return tikhub.fetch_supported_link_mcp(
             tikhub.get_api_key(),
             share_url,
             args.source,
@@ -220,8 +214,10 @@ def apply_data_fallbacks(
         enriched["authorName"] = summary["author"]
     if not str(enriched.get("videoTitle") or "").strip() and summary.get("description"):
         enriched["videoTitle"] = summary["description"]
-    if not (enriched.get("awemeId") or enriched.get("videoId")) and summary.get("aweme_id"):
-        enriched["awemeId"] = summary["aweme_id"]
+    if not (enriched.get("awemeId") or enriched.get("videoId")):
+        video_id = summary.get("aweme_id") or summary.get("video_id")
+        if video_id:
+            enriched["videoId"] = video_id
     return enriched
 
 

@@ -17,6 +17,8 @@
 - 官方说明：<https://tikhub.io/mcp>
 - Streamable HTTP：`https://mcp.tikhub.io/{platform}/mcp`
 - 抖音平台：`https://mcp.tikhub.io/douyin/mcp`
+- 小红书平台：`https://mcp.tikhub.io/xiaohongshu/mcp`
+- 微信平台：`https://mcp.tikhub.io/wechat/mcp`
 - 鉴权：`Authorization: Bearer API_KEY`
 - 协议版本：`2024-11-05`
 - 内容类型：`application/json`
@@ -36,12 +38,20 @@ MCP 调用顺序：
 - `douyin_app_v3_fetch_one_video_by_share_url`：用 `share_url` 查询作品；
 - `douyin_web_fetch_one_video_by_share_url`：作品 App V3 失败时回退。
 
+小红书视频笔记：
+
+- `xiaohongshu_app_v2_get_video_note_detail`：参数使用 `share_text` 传入完整分享链接或文案；响应 `data.data` 的首条为目标笔记，后续条目可能是推荐内容。
+
+微信视频号作品：
+
+- `wechat_channels_v2_fetch_video_detail`：参数使用 `share_url`，并设置 `raw: false` 获取稳定字段摘要。
+
 抖音分享短链接可能指向用户主页。先跟随公开跳转：
 
 - `/share/user/` 或查询参数含 `sec_uid`：提取用户 ID，调用用户资料工具；
 - `/video/`、`/note/` 或 `/slides/`：调用作品工具。
 
-## 第一版内置路由
+## 内置路由
 
 ### 当前账户信息
 
@@ -69,6 +79,24 @@ query: share_url=<抖音分享链接>
 
 Web 返回字段较少，视频画质通常更高。App V3 失败或没有作品数据时可回退 1 次。
 
+### 小红书 App V2 视频笔记详情
+
+```text
+MCP xiaohongshu_app_v2_get_video_note_detail
+arguments: share_text=<小红书分享链接或完整分享文案>
+```
+
+摘要保留笔记 ID、作者、标题、发布时间、时长、IP 属地、标签，以及点赞、收藏、评论、分享和播放字段。接口可能同时返回推荐笔记，当前只读取首条目标笔记。
+
+### 微信视频号 Channels V2 作品详情
+
+```text
+MCP wechat_channels_v2_fetch_video_detail
+arguments: share_url=<视频号分享链接>, raw=false
+```
+
+摘要保留作品 ID、作者、标题、发布时间、时长，以及阅读、点赞、收藏、评论和转发字段。
+
 ## 字幕与语音转写边界
 
 TikHub 提供部分字幕接口：
@@ -89,6 +117,8 @@ YouTube Web V2 文档明确说明不会为无字幕视频执行 AI 语音转写�
 - `500 Internal Server Error`：TikHub 服务端错误。
 
 出现 `401`、`402`、`403`、`429` 时停止自动重试。`500` 可以在用户仍需要该结果时进行 1 次人工确认后的重试。
+
+默认单次数据查询 15 秒超时，不自动重试。TikHub 单侧超时或失败时，整合脚本继续执行轻抖文字稿步骤。
 
 ## 新增路由原则
 

@@ -1,5 +1,5 @@
 {
-  "version": "2.18.34",
-  "notice": "新增短视频数据与文字稿提取，缺少凭证时提供购买和安全配置引导",
-  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.34"
+  "version": "2.18.35",
+  "notice": "短视频提取新增小红书与视频号数据查询，并将单次数据等待限制为 15 秒",
+  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.35"
 }

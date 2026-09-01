@@ -4,7 +4,7 @@
 
 > A Chinese AI Skills toolkit for entrepreneurs and content creators. Give your Agent a real business, content, or execution problem, and get a clear judgment plus the next action you can take.
 
-[![Version](https://img.shields.io/badge/version-2.18.34-111111.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.35-111111.svg)](VERSION)
 [![Skills](https://img.shields.io/badge/Skills-31-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
@@ -12,7 +12,7 @@
 
 Created by [dontbesilent](https://x.com/dontbesilent), dbskill distills 4,176 structured knowledge atoms and 31 directly callable business Skills from 16,152 public posts.
 
-**v2.18.34:** Added `/dbs-video-extract` for short-video data and speech transcripts, with guided service purchase and secure credential setup when access is missing.
+**v2.18.35:** `/dbs-video-extract` now queries Xiaohongshu and WeChat Channels data, with each data request limited to 15 seconds.
 
 [Quick start](#quick-start) · [Install](#install) · [Capabilities](#capabilities) · [Full guide](docs/新手入门.md) · [Releases](https://github.com/dontbesilent2025/dbskill/releases)
 
