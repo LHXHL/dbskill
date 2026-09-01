@@ -29,4 +29,3 @@ dbs-learning
 dbs-spread
 dbs-resonate
 dbs-script-flow
-dbs-skill-cleaner

@@ -1,5 +1,5 @@
 {
-  "version": "2.18.32",
-  "notice": "移除功能重叠的慢就是快 Skill，减少入口选择和路由负担",
-  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.32"
+  "version": "2.18.33",
+  "notice": "按需精简安装包，移除 /dbs-skill-cleaner 及其审查与隔离入口",
+  "details_url": "https://github.com/dontbesilent2025/dbskill/releases/tag/v2.18.33"
 }

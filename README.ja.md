@@ -4,15 +4,15 @@
 
 > 起業家とコンテンツ制作者のための中国語 AI Skills ツールキット。ビジネス、コンテンツ、実行に関する現実の課題を Agent に渡し、明確な判断と次の具体的な行動を得られます。
 
-[![Version](https://img.shields.io/badge/version-2.18.32-111111.svg)](VERSION)
-[![Skills](https://img.shields.io/badge/Skills-31-111111.svg)](docs/新手入门.md#skill-全目录)
+[![Version](https://img.shields.io/badge/version-2.18.33-111111.svg)](VERSION)
+[![Skills](https://img.shields.io/badge/Skills-30-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
 **豆包、WorkBuddy、Claude Code、Codex、および Skills に対応する他の Agent で利用できます。**
 
-dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。公開投稿 16,152 件から、4,176 件の構造化知識原子と直接呼び出せる 31 の正式ビジネス Skill を整理しています。
+dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。公開投稿 16,152 件から、4,176 件の構造化知識原子と直接呼び出せる 30 の正式ビジネス Skill を整理しています。
 
-**v2.18.32：** 機能が重複していた `/dbs-slowisfast` を削除し、Skill の選択とルーティングを簡潔にしました。実行の停滞には `/dbs-action` を使用してください。
+**v2.18.33：** `/dbs-skill-cleaner` と監査・隔離のエントリを削除しました。パッケージには正式なビジネス Skill が 30 個含まれます。
 
 [クイックスタート](#クイックスタート) · [インストール](#インストール) · [機能](#機能一覧) · [完全ガイド](docs/新手入门.md) · [リリース](https://github.com/dontbesilent2025/dbskill/releases)
 
@@ -64,9 +64,8 @@ dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。�
 | 長期の意思決定を記録・振り返る | `/dbs-decision`、`/dbs-save`、`/dbs-restore`、`/dbs-report` | ローカルの記録とレポート |
 | コンテンツ資産と複数 Agent の環境を構築する | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | ローカルプロジェクトとインストール計画 |
 | ローカルフォルダをナレッジベースにする | `/dbs-knowledge` | ナビゲーション、バージョン規則、すぐ使える質問例 |
-| ローカル Skill のリスクを監査する | `/dbs-skill-cleaner` | リスク報告と確認後の隔離 |
 
-31 の正式ビジネス Skill の全一覧、入力例、使い分けは [完全ガイド](docs/新手入门.md#skill-全目录) を参照してください。
+30 の正式ビジネス Skill の全一覧、入力例、使い分けは [完全ガイド](docs/新手入门.md#skill-全目录) を参照してください。
 
 ## インストール
 
@@ -89,7 +88,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-`dbs` プラグインには、正式な 31 個のビジネス Skill と `dbs-update` システムエントリが含まれます。Claude Code ではプラグイン Skill に名前空間が付きます。メインエントリは `/dbs:dbs`、個別機能は `/dbs:dbs-diagnosis` などを使用します。
+`dbs` プラグインには、正式な 30 個のビジネス Skill と `dbs-update` システムエントリが含まれます。Claude Code ではプラグイン Skill に名前空間が付きます。メインエントリは `/dbs:dbs`、個別機能は `/dbs:dbs-diagnosis` などを使用します。
 
 機能を 1 つだけインストールする場合は、対応するプラグインを選択します。例：`claude plugin install dbs-diagnosis@dontbesilent-skills`
 
