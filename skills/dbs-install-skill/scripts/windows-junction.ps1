@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory = $true)]
-  [ValidateSet("create", "target", "remove", "test", "list")]
+  [ValidateSet("create", "target", "remove", "test", "list", "same", "under")]
   [string]$Action,
 
   [Parameter(Mandatory = $true)]
@@ -47,6 +47,18 @@ function Get-ManagedLinkTarget($Item) {
   }
 
   return $null
+}
+
+function Get-ComparableFullName([string]$LiteralPath) {
+  $item = Get-Item -LiteralPath $LiteralPath -Force -ErrorAction SilentlyContinue
+  if ($null -eq $item) {
+    return $null
+  }
+
+  return $item.FullName.TrimEnd(
+    [System.IO.Path]::DirectorySeparatorChar,
+    [System.IO.Path]::AltDirectorySeparatorChar
+  )
 }
 
 switch ($Action) {
@@ -106,5 +118,40 @@ switch ($Action) {
         (($_.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0 -and $_.PSIsContainer)
       } |
       ForEach-Object { $_.FullName }
+  }
+
+  "same" {
+    if ([string]::IsNullOrWhiteSpace($Target)) {
+      exit 1
+    }
+
+    $left = Get-ComparableFullName $Path
+    $right = Get-ComparableFullName $Target
+    if ($null -eq $left -or $null -eq $right) {
+      exit 1
+    }
+
+    if (-not [string]::Equals($left, $right, [System.StringComparison]::OrdinalIgnoreCase)) {
+      exit 1
+    }
+  }
+
+  "under" {
+    if ([string]::IsNullOrWhiteSpace($Target)) {
+      exit 1
+    }
+
+    $child = Get-ComparableFullName $Path
+    $root = Get-ComparableFullName $Target
+    if ($null -eq $child -or $null -eq $root) {
+      exit 1
+    }
+
+    $prefix = $root + [System.IO.Path]::DirectorySeparatorChar
+    $same = [string]::Equals($child, $root, [System.StringComparison]::OrdinalIgnoreCase)
+    $nested = $child.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)
+    if (-not ($same -or $nested)) {
+      exit 1
+    }
   }
 }

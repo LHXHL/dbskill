@@ -16,6 +16,14 @@ done
 
 marker_name=".dbs-test-junction-target"
 
+entry_identity() {
+  local entry="$1"
+  local parent
+
+  parent="$(cd "$(dirname "$entry")" && pwd -P)"
+  printf '%s/%s\n' "$parent" "$(basename "$entry")"
+}
+
 case "$action" in
   create)
     [[ -n "$path" && -n "$target" && ! -e "$path" ]]
@@ -39,6 +47,14 @@ case "$action" in
     while IFS= read -r marker; do
       (cd "$(dirname "$marker")" && pwd -P)
     done < <(find "$path" -mindepth 2 -maxdepth 2 -name "$marker_name" -type f | sort)
+    ;;
+  same)
+    [[ "$(entry_identity "$path")" == "$(entry_identity "$target")" ]]
+    ;;
+  under)
+    child="$(entry_identity "$path")"
+    root="$(entry_identity "$target")"
+    [[ "$child" == "$root" || "$child" == "$root"/* ]]
     ;;
   *) exit 2 ;;
 esac

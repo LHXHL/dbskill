@@ -81,6 +81,14 @@ windows_path() {
   "$converter" -aw "$path"
 }
 
+windows_long_path() {
+  local path="$1"
+  local converter="${DBS_INSTALL_CYGPATH:-cygpath}"
+
+  command -v "$converter" >/dev/null 2>&1 || die "Windows 环境缺少 cygpath，无法比较路径"
+  "$converter" -awl "$path" 2>/dev/null || "$converter" -aw "$path"
+}
+
 posix_path() {
   local path="$1"
   local converter="${DBS_INSTALL_CYGPATH:-cygpath}"
@@ -247,7 +255,7 @@ normalized_path_for_compare() {
   local normalized
 
   if is_windows_layer; then
-    normalized="$(windows_path "$path")"
+    normalized="$(windows_long_path "$path")"
     normalized="${normalized//$'\r'/}"
     normalized="$(printf '%s' "$normalized" | tr '\\\\' '/' | tr '[:upper:]' '[:lower:]')"
     printf '%s\n' "${normalized%/}"
@@ -262,7 +270,9 @@ paths_are_same() {
 
   left="$(normalized_path_for_compare "$1")"
   right="$(normalized_path_for_compare "$2")"
-  [[ "$left" == "$right" ]]
+  [[ "$left" == "$right" ]] && return 0
+  is_windows_layer || return 1
+  run_windows_junction same "$1" "$2" >/dev/null 2>&1
 }
 
 path_is_under() {
@@ -273,8 +283,11 @@ path_is_under() {
   root="$(normalized_path_for_compare "$2")"
   case "$path" in
     "$root"|"$root"/*) return 0 ;;
-    *) return 1 ;;
+    *) ;;
   esac
+
+  is_windows_layer || return 1
+  run_windows_junction under "$1" "$2" >/dev/null 2>&1
 }
 
 is_managed_link() {
