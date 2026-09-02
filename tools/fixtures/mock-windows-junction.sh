@@ -37,7 +37,7 @@ case "$action" in
   list)
     [[ -d "$path" ]] || exit 0
     while IFS= read -r marker; do
-      dirname "$marker"
+      (cd "$(dirname "$marker")" && pwd -P)
     done < <(find "$path" -mindepth 2 -maxdepth 2 -name "$marker_name" -type f | sort)
     ;;
   *) exit 2 ;;

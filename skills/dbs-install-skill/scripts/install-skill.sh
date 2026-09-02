@@ -242,6 +242,41 @@ path_entry_exists() {
   return 1
 }
 
+normalized_path_for_compare() {
+  local path="$1"
+  local normalized
+
+  if is_windows_layer; then
+    normalized="$(windows_path "$path")"
+    normalized="${normalized//$'\r'/}"
+    normalized="$(printf '%s' "$normalized" | tr '\\\\' '/' | tr '[:upper:]' '[:lower:]')"
+    printf '%s\n' "${normalized%/}"
+  else
+    printf '%s\n' "${path%/}"
+  fi
+}
+
+paths_are_same() {
+  local left
+  local right
+
+  left="$(normalized_path_for_compare "$1")"
+  right="$(normalized_path_for_compare "$2")"
+  [[ "$left" == "$right" ]]
+}
+
+path_is_under() {
+  local path
+  local root
+
+  path="$(normalized_path_for_compare "$1")"
+  root="$(normalized_path_for_compare "$2")"
+  case "$path" in
+    "$root"|"$root"/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 is_managed_link() {
   local link="$1"
 
@@ -349,10 +384,10 @@ target_points_to() {
   local src="$3"
   local resolved_target
 
-  [[ "$raw_target" == "$src" ]] && return 0
+  paths_are_same "$raw_target" "$src" && return 0
 
   resolved_target="$(resolved_target_from_raw "$link" "$raw_target" 2>/dev/null || true)"
-  [[ -n "$resolved_target" && "$resolved_target" == "$src" ]]
+  [[ -n "$resolved_target" ]] && paths_are_same "$resolved_target" "$src"
 }
 
 link_targets_under() {
@@ -362,14 +397,10 @@ link_targets_under() {
   local resolved_target
 
   raw_target="$(raw_link_target "$link" 2>/dev/null)" || return 1
-  case "$raw_target" in
-    "$candidate"|"$candidate"/*) return 0 ;;
-  esac
+  path_is_under "$raw_target" "$candidate" && return 0
 
   resolved_target="$(resolved_target_from_raw "$link" "$raw_target" 2>/dev/null || true)"
-  case "$resolved_target" in
-    "$candidate"|"$candidate"/*) return 0 ;;
-  esac
+  [[ -n "$resolved_target" ]] && path_is_under "$resolved_target" "$candidate" && return 0
   return 1
 }
 
@@ -493,7 +524,7 @@ remove_duplicate_aliases() {
       [[ -f "$target/SKILL.md" ]] || continue
       canonical_name="$(skill_name "$target")"
       canonical="$dest_dir/$canonical_name"
-      if [[ "$link" != "$canonical" ]] && link_points_to "$canonical" "$target"; then
+      if ! paths_are_same "$link" "$canonical" && link_points_to "$canonical" "$target"; then
         remove_managed_link "$link"
         echo "✓ 已清理重复别名 $link"
       fi
@@ -514,14 +545,10 @@ remove_stale_collection_artifacts() {
     [[ -d "$dest_dir" ]] || continue
     while IFS= read -r link; do
       raw_target="$(raw_link_target "$link")"
-      case "$raw_target" in
-        "$candidate"|"$candidate"/*)
-          if [[ ! -f "$raw_target/SKILL.md" ]]; then
-            remove_managed_link "$link"
-            echo "✓ 已清理失效链接 $link"
-          fi
-          ;;
-      esac
+      if path_is_under "$raw_target" "$candidate" && [[ ! -f "$raw_target/SKILL.md" ]]; then
+        remove_managed_link "$link"
+        echo "✓ 已清理失效链接 $link"
+      fi
     done < <(managed_links_in_dir "$dest_dir")
   done
 

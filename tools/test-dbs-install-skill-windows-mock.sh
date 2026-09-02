@@ -6,7 +6,8 @@ SCRIPT="$ROOT_DIR/skills/dbs-install-skill/scripts/install-skill.sh"
 MOCK_POWERSHELL="$ROOT_DIR/tools/fixtures/mock-windows-junction.sh"
 MOCK_CYGPATH="$ROOT_DIR/tools/fixtures/mock-cygpath.sh"
 TEST_DIR="$(mktemp -d)"
-TEST_INSTALL_HOME="$TEST_DIR/install-home"
+REAL_INSTALL_HOME="$TEST_DIR/install-home"
+TEST_INSTALL_HOME="$TEST_DIR/install-home-alias"
 SOURCE_DIR="$TEST_DIR/source/windows-junction-skill"
 OUTPUT="$TEST_DIR/output.txt"
 
@@ -43,8 +44,9 @@ assert_missing() {
 
 mkdir -p \
   "$SOURCE_DIR" \
-  "$TEST_INSTALL_HOME/.claude" \
-  "$TEST_INSTALL_HOME/.codex/skills"
+  "$REAL_INSTALL_HOME/.claude" \
+  "$REAL_INSTALL_HOME/.codex/skills"
+ln -s "$REAL_INSTALL_HOME" "$TEST_INSTALL_HOME"
 SOURCE_DIR="$(cd "$SOURCE_DIR" && pwd -P)"
 printf '%s\n' '---' 'name: windows-junction-skill' 'description: test' '---' > "$SOURCE_DIR/SKILL.md"
 
