@@ -67,10 +67,7 @@ def prepare(version: str, notice: str) -> None:
     update_manifest = {
         "version": version,
         "notice": notice,
-        "details_url": (
-            "https://github.com/dontbesilent2025/dbskill/releases/tag/"
-            f"v{version}"
-        ),
+        "details_url": "https://github.com/dontbesilent2025/dbskill/commits/main",
     }
 
     (ROOT_DIR / "VERSION").write_text(f"{version}\n", encoding="utf-8")

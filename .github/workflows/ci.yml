@@ -1,4 +1,4 @@
-name: Release Integrity Checks
+name: Main Integrity Checks
 
 on:
   pull_request:
@@ -39,14 +39,13 @@ jobs:
           python3 tools/check-plugin-update-contract.py
           bash tools/test-dbs-update-check.sh
           bash tools/test-dbs-install-skill.sh
+          bash tools/test-dbs-install-skill-windows-mock.sh
 
-      - name: Build and inspect release bundle
-        run: |
-          set -euo pipefail
-          OUT_DIR="$(mktemp -d)"
-          trap 'rm -rf "$OUT_DIR"' EXIT
-          bash tools/build-skills.sh "$OUT_DIR"
-          ZIP="$OUT_DIR/dbskill-$(tr -d '[:space:]' < VERSION).zip"
-          test -f "$ZIP"
-          test "$(unzip -Z1 "$ZIP" | grep -E '\.zip$' | wc -l | tr -d ' ')" = \
-            "$(python3 -c 'import json; print(len(json.load(open(".claude-plugin/marketplace.json"))["plugins"]))')"
+  verify-windows-junctions:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Windows Junction install lifecycle
+        shell: bash
+        run: bash tools/test-dbs-install-skill-windows.sh

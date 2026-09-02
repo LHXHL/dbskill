@@ -4,7 +4,7 @@
 
 > A Chinese AI Skills toolkit for entrepreneurs and content creators. Give your Agent a real business, content, or execution problem, and get a clear judgment plus the next action you can take.
 
-[![Version](https://img.shields.io/badge/version-2.18.35-111111.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.36-111111.svg)](VERSION)
 [![Skills](https://img.shields.io/badge/Skills-31-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
@@ -12,9 +12,9 @@
 
 Created by [dontbesilent](https://x.com/dontbesilent), dbskill distills 4,176 structured knowledge atoms and 31 directly callable business Skills from 16,152 public posts.
 
-**v2.18.35:** `/dbs-video-extract` now queries Xiaohongshu and WeChat Channels data, with each data request limited to 15 seconds.
+**v2.18.36:** Windows installs now use directory junctions, preventing one Skill from being copied into multiple physical directories.
 
-[Quick start](#quick-start) · [Install](#install) · [Capabilities](#capabilities) · [Full guide](docs/新手入门.md) · [Releases](https://github.com/dontbesilent2025/dbskill/releases)
+[Quick start](#quick-start) · [Install](#install) · [Capabilities](#capabilities) · [Full guide](docs/新手入门.md) · [Changes](https://github.com/dontbesilent2025/dbskill/commits/main)
 
 ![dbskill composition map](docs/skill-link-map.svg)
 
@@ -104,7 +104,7 @@ Ask your current Agent:
 更新 dbskill
 ```
 
-This syncs the official dbskill and does not modify records, reports, or decisions under `~/.dbs/`. See [GitHub Releases](https://github.com/dontbesilent2025/dbskill/releases) for changes.
+This syncs the official dbskill and does not modify records, reports, or decisions under `~/.dbs/`. See the [commit history](https://github.com/dontbesilent2025/dbskill/commits/main) for changes.
 
 ## How it works
 

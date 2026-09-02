@@ -19,19 +19,14 @@ def git(*args: str) -> str:
     ).strip()
 
 
-def previous_release_tag(current_version: str) -> str | None:
-    tags = git("tag", "--merged", "HEAD", "--sort=-version:refname").splitlines()
-    current_tag = f"v{current_version}"
-    return next((tag for tag in tags if tag != current_tag), None)
-
-
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--release",
+        "--publish",
         action="store_true",
-        help="校验本次发布相对上一发布版本的升级契约",
+        help="校验当前工作区相对 HEAD 的插件升级契约",
     )
+    parser.add_argument("--release", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
 
     version = (ROOT_DIR / "VERSION").read_text(encoding="utf-8").strip()
@@ -57,15 +52,15 @@ def main() -> None:
                 f"{manifest_version!r}，会覆盖 marketplace 的插件版本"
             )
 
-    if args.release:
+    publishing = args.publish or args.release
+    if publishing:
         try:
-            previous_tag = previous_release_tag(version)
-        except subprocess.CalledProcessError:
-            previous_tag = None
-        if previous_tag:
             old_marketplace = json.loads(
-                git("show", f"{previous_tag}:.claude-plugin/marketplace.json")
+                git("show", "HEAD:.claude-plugin/marketplace.json")
             )
+        except subprocess.CalledProcessError:
+            old_marketplace = None
+        if old_marketplace:
             old_versions = {
                 plugin["name"]: plugin.get("version")
                 for plugin in old_marketplace.get("plugins", [])
@@ -74,7 +69,7 @@ def main() -> None:
                 name = plugin.get("name", "<未命名>")
                 if old_versions.get(name) == plugin.get("version"):
                     errors.append(
-                        f"插件 {name} 与上一发布 {previous_tag} 使用相同版本 "
+                        f"插件 {name} 与当前 HEAD 使用相同版本 "
                         f"{plugin.get('version')!r}，Claude Code 会跳过更新"
                     )
 
@@ -84,7 +79,7 @@ def main() -> None:
             print(f"- {error}", file=sys.stderr)
         sys.exit(1)
 
-    scope = "发布版本" if args.release else "当前工作区"
+    scope = "待推送版本" if publishing else "当前工作区"
     print(f"插件升级契约校验通过：{scope} v{version}")
 
 

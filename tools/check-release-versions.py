@@ -54,12 +54,10 @@ if not isinstance(notice, str) or not 20 <= len(notice.strip()) <= 80:
 elif notice != notice.strip() or any(character in notice for character in "\r\n\t"):
     errors.append("UPDATE.json notice 不能包含首尾空白、换行或制表符")
 
-expected_details_url = (
-    "https://github.com/dontbesilent2025/dbskill/releases/tag/" f"v{version}"
-)
+expected_details_url = "https://github.com/dontbesilent2025/dbskill/commits/main"
 if update_manifest.get("details_url") != expected_details_url:
     errors.append(
-        "UPDATE.json details_url 必须指向当前版本的官方 GitHub Release"
+        "UPDATE.json details_url 必须指向官方 main 分支提交记录"
     )
 
 for plugin in marketplace.get("plugins", []):

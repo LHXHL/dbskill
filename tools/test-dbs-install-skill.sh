@@ -60,7 +60,7 @@ printf '%s\n' \
   "- Source of truth: $SOURCE_DIR/removed-skill/SKILL.md" \
   > "$TEST_HOME/.grok/skills/removed-skill/SKILL.md"
 
-HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR" > "$OUTPUT"
+DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR" > "$OUTPUT"
 
 assert_link "$TEST_HOME/.agents/skills/stable-skill-name" "$SOURCE_DIR/category-prefixed"
 assert_link "$TEST_HOME/.agents/skills/fallback-name" "$SOURCE_DIR/fallback-name"
@@ -77,32 +77,39 @@ assert_missing "$TEST_HOME/.qwen"
 grep -q '^user_invocable: true$' "$TEST_HOME/.grok/skills/stable-skill-name/SKILL.md" || fail "Grok 适配层缺少 user_invocable"
 
 ln -s "$SOURCE_DIR/category-prefixed" "$TEST_HOME/.codex/skills/stable-skill-name"
-if HOME="$TEST_HOME" "$SCRIPT" status "$SOURCE_DIR/category-prefixed" > "$OUTPUT" 2>&1; then
+if DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" status "$SOURCE_DIR/category-prefixed" > "$OUTPUT" 2>&1; then
   fail "status 应识别冗余入口"
 fi
 grep -q '发现冗余入口' "$OUTPUT" || fail "status 未报告冗余入口"
 
-HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR/category-prefixed" > "$OUTPUT"
+DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR/category-prefixed" > "$OUTPUT"
 assert_missing "$TEST_HOME/.codex/skills/stable-skill-name"
 
 ln -s "$SOURCE_DIR/category-prefixed" "$TEST_HOME/.agents/skills/old-stable-name"
-HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR" > "$OUTPUT"
+DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR" > "$OUTPUT"
 assert_missing "$TEST_HOME/.agents/skills/old-stable-name"
 
 mkdir -p "$TEST_HOME/.cursor/skills/stable-skill-name"
-if HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR/category-prefixed" > "$OUTPUT" 2>&1; then
+if DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR/category-prefixed" > "$OUTPUT" 2>&1; then
   fail "真实目录冲突时 link 应返回失败"
 fi
 [[ -d "$TEST_HOME/.cursor/skills/stable-skill-name" ]] || fail "真实目录不应被删除"
-if HOME="$TEST_HOME" "$SCRIPT" status "$SOURCE_DIR/category-prefixed" > "$OUTPUT" 2>&1; then
+if DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" status "$SOURCE_DIR/category-prefixed" > "$OUTPUT" 2>&1; then
   fail "status 应识别公共兼容客户端的真实目录冲突"
 fi
 grep -q '同名真实目录或文件' "$OUTPUT" || fail "status 未报告真实目录冲突"
 
 rmdir "$TEST_HOME/.cursor/skills/stable-skill-name"
-HOME="$TEST_HOME" "$SCRIPT" unlink "$SOURCE_DIR" > "$OUTPUT"
+DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" unlink "$SOURCE_DIR" > "$OUTPUT"
 assert_missing "$TEST_HOME/.agents/skills/stable-skill-name"
 assert_missing "$TEST_HOME/.claude/skills/stable-skill-name"
 assert_missing "$TEST_HOME/.grok/skills/stable-skill-name"
+
+mkdir -p "$TEST_DIR/other-source"
+ln -s "$TEST_DIR/other-source" "$TEST_HOME/.agents/skills/stable-skill-name"
+if DBS_INSTALL_HOME="$TEST_HOME" "$SCRIPT" link "$SOURCE_DIR/category-prefixed" > "$OUTPUT" 2>&1; then
+  fail "指向其他来源的链接冲突时 link 应返回失败"
+fi
+assert_link "$TEST_HOME/.agents/skills/stable-skill-name" "$TEST_DIR/other-source"
 
 echo "PASS: dbs-install-skill frontmatter 命名、自动路由与去重"
