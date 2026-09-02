@@ -68,7 +68,13 @@ assert_junction() {
   local actual_windows
   local actual
 
-  run_junction_helper test "$path" || fail "$path 应为 Junction"
+  if ! run_junction_helper test "$path"; then
+    echo "--- installer output ---" >&2
+    sed -n '1,240p' "$OUTPUT" >&2
+    echo "--- target directory ---" >&2
+    ls -la "$(dirname "$path")" >&2 || true
+    fail "$path 应为 Junction"
+  fi
   actual_windows="$(run_junction_helper target "$path")"
   actual_windows="${actual_windows//$'\r'/}"
   actual="$(cygpath -au "$actual_windows")"

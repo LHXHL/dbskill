@@ -21,6 +21,31 @@ function Get-ManagedLink([string]$LiteralPath) {
     return $item
   }
 
+  $isReparsePoint = ($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0
+  if ($isReparsePoint -and $item.PSIsContainer) {
+    return $item
+  }
+
+  return $null
+}
+
+function Get-ManagedLinkTarget($Item) {
+  $linkTarget = @($Item.Target)[0]
+  if (-not [string]::IsNullOrWhiteSpace($linkTarget)) {
+    if (-not [System.IO.Path]::IsPathRooted($linkTarget)) {
+      $linkTarget = Join-Path $Item.Parent.FullName $linkTarget
+    }
+    return [System.IO.Path]::GetFullPath($linkTarget)
+  }
+
+  $resolveMethod = $Item.GetType().GetMethod("ResolveLinkTarget", [type[]]@([bool]))
+  if ($null -ne $resolveMethod) {
+    $resolved = $Item.ResolveLinkTarget($false)
+    if ($null -ne $resolved) {
+      return $resolved.FullName
+    }
+  }
+
   return $null
 }
 
@@ -36,7 +61,7 @@ switch ($Action) {
 
     New-Item -ItemType Junction -Path $Path -Target $Target | Out-Null
     $item = Get-ManagedLink $Path
-    if ($null -eq $item -or $item.LinkType -ne "Junction") {
+    if ($null -eq $item) {
       throw "Junction 创建后校验失败：$Path"
     }
   }
@@ -47,16 +72,12 @@ switch ($Action) {
       exit 1
     }
 
-    $linkTarget = @($item.Target)[0]
+    $linkTarget = Get-ManagedLinkTarget $item
     if ([string]::IsNullOrWhiteSpace($linkTarget)) {
       exit 1
     }
 
-    if (-not [System.IO.Path]::IsPathRooted($linkTarget)) {
-      $linkTarget = Join-Path $item.Parent.FullName $linkTarget
-    }
-
-    [System.IO.Path]::GetFullPath($linkTarget)
+    $linkTarget
   }
 
   "remove" {
@@ -80,7 +101,10 @@ switch ($Action) {
     }
 
     Get-ChildItem -LiteralPath $Path -Force |
-      Where-Object { $_.LinkType -in @("Junction", "SymbolicLink") } |
+      Where-Object {
+        $_.LinkType -in @("Junction", "SymbolicLink") -or
+        (($_.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0 -and $_.PSIsContainer)
+      } |
       ForEach-Object { $_.FullName }
   }
 }
