@@ -30,10 +30,17 @@ def validate(root: Path) -> list[str]:
         return [f"缺少编号分配状态：{state_file}"]
     try:
         state = json.loads(state_file.read_text(encoding="utf-8"))
-        next_number = state["next_number"]
-        if type(next_number) is not int or not 0 <= next_number <= 1000:
-            raise ValueError("next_number 必须是 0～1000 的整数")
-    except (OSError, json.JSONDecodeError, KeyError, ValueError) as error:
+        issued = state["issued"]
+        retired = state["retired"]
+        if state.get("schema_version") != 2 or not isinstance(issued, list) or not isinstance(retired, list):
+            raise ValueError("编号分配状态格式错误")
+        if any(not isinstance(code, str) or NUMBER.fullmatch(code) is None for code in issued + retired):
+            raise ValueError("issued 和 retired 只允许三位数字")
+        if issued != sorted(set(issued)) or retired != sorted(set(retired)):
+            raise ValueError("issued 和 retired 必须唯一且升序")
+        if not set(retired).issubset(issued):
+            raise ValueError("retired 必须属于 issued")
+    except (OSError, json.JSONDecodeError, KeyError, ValueError, TypeError) as error:
         return [f"编号分配状态无效：{error}"]
 
     numbers: list[int] = []
@@ -110,8 +117,9 @@ def validate(root: Path) -> list[str]:
         errors.append("catalog.json 的编号必须唯一且升序")
     if set(listed_codes) != {f"{number:03d}" for number in numbers}:
         errors.append("catalog.json 与编号目录的编号集合不一致")
-    if numbers and max(numbers) >= next_number:
-        errors.append("allocation.json 的 next_number 必须大于所有已分配编号")
+    active = {f"{number:03d}" for number in numbers}
+    if active != set(issued) - set(retired):
+        errors.append("allocation.json 的 issued、retired 与现有编号目录不一致")
     return errors
 
 
