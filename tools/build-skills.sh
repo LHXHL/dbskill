@@ -23,7 +23,7 @@ group_for() {
       echo "必装入口" ;;
     dbs-diagnosis|dbs-standard-answer|dbs-theory-grounding|dbs-deconstruct|dbs-goal|dbs-good-question|dbs-jtbd|dbs-action)
       echo "看商业问题" ;;
-    dbs-content|dbs-content-risk-check|dbs-benchmark|dbs-hook|dbs-xhs-title|dbs-ai-check|dbs-wechat-html|dbs-spread|dbs-resonate|dbs-script-flow|dbs-video-extract)
+    dbs-content|dbs-content-value|dbs-video-navigation|dbs-content-risk-check|dbs-benchmark|dbs-title-cover-intro|dbs-hook|dbs-xhs-title|dbs-ai-check|dbs-wechat-html|dbs-spread|dbs-resonate|dbs-script-flow|dbs-video-extract)
       echo "做内容" ;;
     dbs-content-system)
       echo "进阶-内容工程" ;;
@@ -180,8 +180,9 @@ Trae Solo 一个 zip 装一个 skill。本压缩包按使用场景分了几个�
 - **dbs-content** — 内容创作诊断
 - **dbs-content-risk-check** — 内容发布风险检查（区分机器审核信号与内容实质问题，给出最小修改动作）
 - **dbs-benchmark** — 对标分析
-- **dbs-hook** — 短视频开头优化
-- **dbs-xhs-title** — 小红书标题公式（75 个验证过的爆款公式）
+- **dbs-title-cover-intro** — 根据稿件与拍摄状态生成标题、封面和视频开头
+- **dbs-hook** — 【deprecated】旧版短视频开头优化
+- **dbs-xhs-title** — 【deprecated】旧版小红书标题公式
 - **dbs-ai-check** — AI 写作特征识别
 - **dbs-wechat-html** — 微信公众号 HTML 生成（15 种经典风格，支持预览和全量生成）
 - **dbs-spread** — 传播心理解码

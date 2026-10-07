@@ -4,16 +4,16 @@
     "name": "dontbesilent2025"
   },
   "metadata": {
-    "description": "dontbesilent 商业诊断工具箱 — 将累计推文中经过筛选的内容整理为 4176 个知识原子、33 个商业 Skill 和 1 个系统更新入口",
-    "version": "2.18.45"
+    "description": "dontbesilent 商业与内容工具箱：33 个当前业务 Skill、2 个兼容入口和 1 个更新入口。",
+    "version": "2.18.46"
   },
   "plugins": [
     {
       "name": "dbs",
-      "description": "dontbesilent 商业工具箱完整入口。联网查询隐藏款目录、按三位编号从公开仓库读取预制方法；普通任务仍由 /dbs 编排正式 Skill。",
+      "description": "dontbesilent 商业工具箱主入口，提供新手教程、单任务编排、联网编号执行与隐藏款目录查询。用户第一次使用 dbskill、不知道该用哪个正式 Skill、输入方法视频的三位编号、查询所有隐藏款，或在任务完成后询问下一步时使用。",
       "source": "./",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "business-diagnostics",
       "keywords": [
         "business",
@@ -25,10 +25,10 @@
     },
     {
       "name": "dbs-update",
-      "description": "dbskill 系统更新入口。用户说「更新 dbskill」时，同步官方 dbskill，不更新其他 Skill 或用户存档。",
+      "description": "更新官方 dbskill，并保留其他 Skill 与用户存档。用户要求更新、升级、检查 dbskill 版本，或在更新提醒后回复 1 时使用。",
       "source": "./skills/dbs-update",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "workflow-infrastructure",
       "keywords": [
         "dbskill",
@@ -40,10 +40,10 @@
     },
     {
       "name": "dbs-diagnosis",
-      "description": "dontbesilent 商业模式诊断。自动识别具体商业困境或全面检查需求，定位关键问题。",
+      "description": "自动识别用户是在解决具体商业问题，还是希望全面检查商业模式，并进入对应诊断流程。用户希望拆解业务、检查商业模式或消解具体商业困境时使用。",
       "source": "./skills/dbs-diagnosis",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "business-diagnostics",
       "keywords": [
         "business-model",
@@ -55,10 +55,10 @@
     },
     {
       "name": "dbs-benchmark",
-      "description": "dontbesilent 对标分析。用五重过滤法帮你找到值得模仿的对标，排除一切关于「我」的噪音。",
+      "description": "用五重过滤法寻找值得模仿的对标，并排除主体差异造成的噪音。用户要求找对标、选择模仿对象或分析竞争参照时使用。",
       "source": "./skills/dbs-benchmark",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "business-diagnostics",
       "keywords": [
         "benchmark",
@@ -70,10 +70,10 @@
     },
     {
       "name": "dbs-standard-answer",
-      "description": "先挖掘问题相关的领域、作者和可信理论，再研究历史同构的成功、失败与反例，提炼带条件的标准答案。",
+      "description": "围绕复杂问题先挖掘相关行业、学科、作者与可信理论，再比较结构同构的历史成功、失败和反例，提炼带条件的标准答案。用户需要同时获得理论解释与历史比较，或明确询问历史上如何解决、有没有经典解法、标准答案时使用；只需给现有命题、案例、PPT 或方法论找理论依据时不使用。",
       "source": "./skills/dbs-standard-answer",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "thinking-tools",
       "keywords": [
         "theory-grounding",
@@ -89,10 +89,10 @@
     },
     {
       "name": "dbs-theory-grounding",
-      "description": "审查经验命题，匹配并核实可信理论，再用理论重释案例并标明适用边界；适合给 PPT、课程、文案和方法论补理论依据。",
+      "description": "理论溯源与案例重释。审查 PPT、课程、文案或方法论中的经验判断，先判断命题是否成立，再匹配并核实可信理论，用该理论重释案例并标明边界。适用于给自创理论找依据、给 PPT 补理论来源、判断一句话能否上升为理论、检查是否硬套名人；聚焦单次理论锚定，不默认展开历史同构研究。",
       "source": "./skills/dbs-theory-grounding",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "thinking-tools",
       "keywords": [
         "theory-grounding",
@@ -105,10 +105,10 @@
     },
     {
       "name": "dbs-action",
-      "description": "dontbesilent 执行力诊断。用阿德勒心理学框架诊断你「知道该做什么但就是不做」的真正原因。",
+      "description": "用阿德勒心理学框架诊断执行阻滞。用户知道该做什么却迟迟不做、反复拖延或行动中断时使用。",
       "source": "./skills/dbs-action",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "business-diagnostics",
       "keywords": [
         "psychology",
@@ -120,10 +120,10 @@
     },
     {
       "name": "dbs-content",
-      "description": "dontbesilent 内容创作诊断。选题通过后，诊断怎么把这个选题做成好内容。",
+      "description": "围绕已经确定的选题诊断内容怎么组织、论证和表达，形成创作方案。用户要把选题做成内容时使用；已有稿件的共鸣删改、整体流量价值评估、标题开头生成和成片导航分别交由对应专用能力处理。",
       "source": "./skills/dbs-content",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "content",
@@ -135,10 +135,10 @@
     },
     {
       "name": "dbs-content-value",
-      "description": "评估发布前或低流量内容会吸引谁、开头能否留人，以及流量和商业价值；适用于整体内容表现判断，不负责传播机制解读、整篇逐句改稿或短视频开头代写。",
+      "description": "评估发布前或低流量内容会吸引谁、开头能否留人，以及流量和商业价值。适用于整体内容表现判断；不负责传播机制解读、整篇逐句改稿或短视频开头代写。",
       "source": "./skills/dbs-content-value",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "content-value",
@@ -151,10 +151,10 @@
     },
     {
       "name": "dbs-content-risk-check",
-      "description": "面向创作者的内容发布风险检查。区分平台机器可能识别的信号与内容本身的问题，定位敏感词、广告、导流、受限推广、虚假宣传、隐私和视频语境风险，并给出最小修改动作。",
+      "description": "面向创作者的内容发布风险检查。逐句检查自媒体、社交媒体和内容平台的标题、正文、图片文字、字幕、口播、评论、账号资料及视频画面，分别判断平台机器可能识别什么、内容本身存在什么实质问题，并给出具体位置和最小修改动作；需要明确视频语境边界时，额外生成真实准确的三行贴片小字。用户询问「检查敏感词」「发布前排雷」「这篇内容哪里可能违规」「这条小红书能不能发」「视频上放什么声明」时使用。保留强观点、情绪张力、个人风格和传播钩子。",
       "source": "./skills/dbs-content-risk-check",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "content-risk",
@@ -167,10 +167,10 @@
     },
     {
       "name": "dbs-content-system",
-      "description": "dontbesilent 内容结构化系统。把本地大量文稿、推文、选题、案例和课程稿搭成一个可持续生长的内容结构化工程：先审计内容规模与边界，再建立新工程、复制素材、抽取内容单元、生成主题地图与选题装配稿。",
+      "description": "把本地文稿、推文、选题、案例和课程稿整理成可持续生长、可重组复用的内容工程。用户要求结构化内容资产、整理旧素材或建立主题地图时使用。",
       "source": "./skills/dbs-content-system",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "workflow-infrastructure",
       "keywords": [
         "content-system",
@@ -183,10 +183,10 @@
     },
     {
       "name": "dbs-video-extract",
-      "description": "接收抖音、小红书、微信视频号等短视频链接或分享文案，查询作品／账号数据并提取语音文字稿，按作者和标题归档为 Markdown。用户希望完整解析短视频、取得数据或文字稿时使用；运行前检查 TikHub 与轻抖使用凭证，缺少时用新手能理解的方式引导购买和安全配置。",
+      "description": "从抖音、小红书、微信视频号等平台链接或分享文案查询作品／账号数据并提取语音文字稿，按作者和标题归档为 Markdown。用户要求解析平台视频或取得数据、文字稿时使用；需配置 TikHub 与轻抖凭证，不负责本地成片章节导航或导航视频渲染。",
       "source": "./skills/dbs-video-extract",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "video-extract",
@@ -200,11 +200,26 @@
       ]
     },
     {
+      "name": "dbs-video-navigation",
+      "description": "根据本地视频或带时间戳字幕划分章节、话题或步骤，生成可导入剪辑软件的导航条 MP4、动态分段进度和时间表。用户要求视频章节导航、顶部进度条或当前位置提示时使用；不负责平台链接数据提取、标题封面开头文案、风险声明贴片或剪辑原片。",
+      "source": "./skills/dbs-video-navigation",
+      "strict": true,
+      "version": "2.18.46",
+      "category": "content-creation",
+      "keywords": [
+        "video-navigation",
+        "chapters",
+        "progress-bar",
+        "subtitles",
+        "timeline"
+      ]
+    },
+    {
       "name": "dbs-knowledge",
-      "description": "dontbesilent 文件夹知识库。把本地文件夹变成 Agent 能稳定查找、收录、调用和维护的知识库，支持知识库导航、轻量更新、版本判断、健康检查及 SOT 瘦身与分层治理。",
+      "description": "把本地文件夹建成 Agent 可稳定查找、收录和维护的知识库，并支持导航、版本判断、健康检查及 SOT 分层治理。用户要求搭建、查询、更新、整理或瘦身知识库时使用。",
       "source": "./skills/dbs-knowledge",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "workflow-infrastructure",
       "keywords": [
         "knowledge-base",
@@ -216,11 +231,29 @@
       ]
     },
     {
+      "name": "dbs-title-cover-intro",
+      "description": "为内容生成或修改文字标题、封面标题和视频开头，按稿件与拍摄状态检查正文兑现；角度未定时开发并确认主线。用户要求标题、封面文字、冷开场或多平台适配时使用；不生成封面图片、视频章节导航条或发布风险声明。",
+      "source": "./skills/dbs-title-cover-intro",
+      "strict": true,
+      "version": "2.18.46",
+      "category": "content-creation",
+      "keywords": [
+        "title",
+        "cover",
+        "video",
+        "intro",
+        "hook",
+        "opening",
+        "social-media",
+        "chinese"
+      ]
+    },
+    {
       "name": "dbs-hook",
-      "description": "专门诊断并改写短视频开头，提供多套前几秒的具体开场方案；不负责整条内容的受众、流量和商业价值评估。",
+      "description": "【deprecated】旧版兼容入口。仅在用户明确调用 dbs-hook 或要求对照旧版时使用；新任务优先使用 dbs-title-cover-intro。",
       "source": "./skills/dbs-hook",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "video",
@@ -233,10 +266,10 @@
     },
     {
       "name": "dbs-xhs-title",
-      "description": "小红书标题公式工具。从 75 个验证过的爆款公式中，帮你挑对的、用对的、理解为什么用这个。",
+      "description": "【deprecated】旧版兼容入口。仅在用户明确调用 dbs-xhs-title 或要求对照旧版时使用；新任务优先使用 dbs-title-cover-intro。",
       "source": "./skills/dbs-xhs-title",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "xiaohongshu",
@@ -249,10 +282,10 @@
     },
     {
       "name": "dbs-deconstruct",
-      "description": "dontbesilent 概念拆解。用维特根斯坦 + 奥派经济学的方法，把模糊的商业概念拆到原子级别。",
+      "description": "用维特根斯坦与奥派经济学方法拆解模糊的商业概念。用户要求解释一个词、澄清概念边界或识别概念混用时使用。",
       "source": "./skills/dbs-deconstruct",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "thinking-tools",
       "keywords": [
         "wittgenstein",
@@ -264,10 +297,10 @@
     },
     {
       "name": "dbs-chatroom-austrian",
-      "description": "哈耶克 × 米塞斯 × Claude 三人对话。奥派经济学视角的多角色讨论。",
+      "description": "由哈耶克、米塞斯与 Claude 从奥派经济学视角展开多角色讨论。用户要求进入奥派聊天室或用奥派分析问题时使用。",
       "source": "./skills/dbs-chatroom-austrian",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "thinking-tools",
       "keywords": [
         "austrian-economics",
@@ -280,10 +313,10 @@
     },
     {
       "name": "dbs-chatroom",
-      "description": "定向聊天室。根据话题推荐或接受用户指定的专家，模拟多角色对话 + 判官总结。",
+      "description": "根据话题推荐或接受用户指定的专家，模拟多角色对话并总结分歧。用户要求专家讨论、定向聊天室或继续当前讨论时使用；明确要求奥派聊天室时优先匹配专门的奥派讨论能力。",
       "source": "./skills/dbs-chatroom",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "thinking-tools",
       "keywords": [
         "chatroom",
@@ -295,10 +328,10 @@
     },
     {
       "name": "dbs-ai-check",
-      "description": "dontbesilent AI 写作特征识别。扫描文案中的 AI 生成痕迹，输出检测报告。默认只诊断不改。",
+      "description": "扫描文案中的 AI 写作特征并输出检测报告，默认只诊断不改写。用户要求检查 AI 味、AI 痕迹或机器化表达时使用。",
       "source": "./skills/dbs-ai-check",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "ai-detection",
@@ -310,10 +343,10 @@
     },
     {
       "name": "dbs-wechat-html",
-      "description": "微信公众号 HTML 生成。把 Markdown 转成可粘贴到微信公众号后台的 HTML，内置 15 种经典媒体/科技产品/中文公众号风格。",
+      "description": "把 Markdown 转成可粘贴到微信公众号后台的 HTML，并提供 15 种内置风格。用户要求生成公众号 HTML、制作微信版本或排版公众号文章时使用。",
       "source": "./skills/dbs-wechat-html",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "wechat",
@@ -326,10 +359,10 @@
     },
     {
       "name": "dbs-install-skill",
-      "description": "多端 Skill 安装与同步。把单个 Skill 或 Skill 集合安装到通用 Agents、Claude Code、Codex、WorkBuddy、Grok、Hermes Agent、Kiro、Qwen Code 和 Cline 等客户端；自动选择公共入口或必要的专属入口，并清理重复、别名和失效链接。支持本地与外部路径、批量安装、状态检查和卸载。",
+      "description": "将单个 Skill 或 Skill 集合安装到通用 Agents、Claude Code、Codex、WorkBuddy、Grok、Hermes Agent、Kiro、Qwen Code、Cline 等 Agent。用户要求跨 Agent 安装、同步、查看、去重或卸载 Skill 时使用。",
       "source": "./skills/dbs-install-skill",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "workflow-infrastructure",
       "keywords": [
         "install",
@@ -346,10 +379,10 @@
     },
     {
       "name": "dbs-skill-maker",
-      "description": "单个 Skill 制作器。通过需求分析把反复出现的问题制作成可安装、可分级验证的 Skill；用户要求做 Skill、检查候选 Skill 或准备单 Skill GitHub 发布时使用。",
+      "description": "通过需求分析把反复出现的问题制作成可安装、可分级验证的单个 Skill。用户要求做 Skill、把问题沉淀成 Skill、检查或测试候选 Skill 时使用；只有用户明确要求分享或发布时，才准备 GitHub 仓库并验证 `npx skills add`。",
       "source": "./skills/dbs-skill-maker",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "workflow-infrastructure",
       "keywords": [
         "skill",
@@ -363,10 +396,10 @@
     },
     {
       "name": "dbs-agent-migration",
-      "description": "Agent 工作台迁移。把任意项目整理成 Claude Code / Codex / Grok / 通用 Agents（~/.agents/skills）多端一致的 Agent 工作台：审计规则文件、识别真源、统一命名与 bridge。",
+      "description": "审计项目规则文件、识别真源、统一命名并生成桥接，把项目迁移成多端一致的 Agent 工作台。用户要求迁移 Claude Code、Codex、Grok、通用 Agents 或整理 AGENTS.md 时使用。",
       "source": "./skills/dbs-agent-migration",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "workflow-infrastructure",
       "keywords": [
         "agent",
@@ -382,10 +415,10 @@
     },
     {
       "name": "dbs-save",
-      "description": "把当前诊断的关键状态存到本地，下次回来可以接着用。诊断从单次问诊升级为可累积的状态。",
+      "description": "把当前诊断的关键状态保存到本地，并查看或设置存档位置。用户要求保存结论、跨会话续接或修改存档位置时使用。",
       "source": "./skills/dbs-save",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "state-management",
       "keywords": [
         "save",
@@ -398,10 +431,10 @@
     },
     {
       "name": "dbs-restore",
-      "description": "把上次诊断的状态拉出来，接着用。配合 dbs-save，跨对话接续诊断。",
+      "description": "恢复由 dbs-save 保存的最近诊断状态。用户要求接着上次、查看此前结论或继续未完成诊断时使用。",
       "source": "./skills/dbs-restore",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "state-management",
       "keywords": [
         "restore",
@@ -413,10 +446,10 @@
     },
     {
       "name": "dbs-report",
-      "description": "把多次 dbs-save 攒下来的诊断状态合并成一份可交付的 markdown 报告，可分享、可归档。",
+      "description": "把多次 dbs-save 存档合并成可交付的 Markdown 报告。用户要求汇总诊断、整理报告或生成可分享材料时使用。",
       "source": "./skills/dbs-report",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "state-management",
       "keywords": [
         "report",
@@ -428,10 +461,10 @@
     },
     {
       "name": "dbs-goal",
-      "description": "dontbesilent 目标清晰化。提取已有约束，只追问会改变执行或验收的关键信息；明确任务直接放行，模糊目标整理成可行动、可检查的交付物。",
+      "description": "提取已有约束，只追问影响执行或验收的信息，把模糊愿望整理成可行动、可检查的交付目标。用户要明确做成什么、边界和验收标准时使用；不替代概念拆解、研究问题改写或顾客购买动机分析。",
       "source": "./skills/dbs-goal",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "business-diagnostics",
       "keywords": [
         "goal",
@@ -443,10 +476,10 @@
     },
     {
       "name": "dbs-good-question",
-      "description": "dontbesilent 好问题生成器。把模糊问题改写成 Agent 可推理、可批评、可验证的问题说明书，并判断自动化解决程度。",
+      "description": "把模糊提问改写成 Agent 可推理、可批评、可验证的问题说明书，并判断自动化可解程度。用户要改进问题表述、研究问题或评估 Agent 可解性时使用；任务交付目标已明确时不重复澄清目标。",
       "source": "./skills/dbs-good-question",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "thinking-tools",
       "keywords": [
         "problem",
@@ -460,10 +493,10 @@
     },
     {
       "name": "dbs-jtbd",
-      "description": "dontbesilent JTBD 任务澄清。识别用户在具体情境中想推进的进展、切换方案的力量与可观察的选择标准，用于产品、内容、服务、决策和 AI 提示词。",
+      "description": "用 Jobs to Be Done 识别具体情境中用户想推进的进展、切换方案的力量和选择标准，解释产品、服务或内容为何被选择。用户要求分析顾客任务、购买动机、替代方案或明确用 JTBD 重写提示词时使用；普通任务验收标准澄清无需套用该框架。",
       "source": "./skills/dbs-jtbd",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "thinking-tools",
       "keywords": [
         "jtbd",
@@ -476,10 +509,10 @@
     },
     {
       "name": "dbs-decision",
-      "description": "dontbesilent 个人决策系统。把任何一个需要长期跟踪的领域（业务、关系、健康、职业、学习、投资……）做成本地知识工程：四层结构（事实/规律/定格/待解）+ 来源标签 + 写完不改的快照 + 能炼出规律的概念库。支持立案、回填、状态画像、隐私模式。",
+      "description": "把需要长期跟踪的业务、关系、健康、职业、学习或投资问题建成本地决策知识工程。用户要求决策立案、结果回填、状态画像或长期复盘时使用。",
       "source": "./skills/dbs-decision",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "state-management",
       "keywords": [
         "decision",
@@ -493,10 +526,10 @@
     },
     {
       "name": "dbs-learning",
-      "description": "dontbesilent 交互式学习。把一个课题拆成连续学习文章，根据用户在上一篇中的反馈调整下一篇的深度、角度和节奏。",
+      "description": "把课题拆成连续学习文章，并根据用户反馈调整后续深度、角度和节奏。用户要求系统学习一个主题、继续下一篇或按反馈调整课程时使用。",
       "source": "./skills/dbs-learning",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "learning",
       "keywords": [
         "learning",
@@ -508,10 +541,10 @@
     },
     {
       "name": "dbs-spread",
-      "description": "解释一段已有内容为什么引发共鸣、情绪或分享，识别传播机制、有效立场和受众动机，并提炼讨论方向；不负责整篇逐句改稿或整体流量和商业价值评估。",
+      "description": "解释一段已有内容为什么引发共鸣、情绪或分享，识别传播机制、有效立场和受众动机，并提炼讨论方向。适用于传播机制解读；不负责整篇逐句改稿或整体流量和商业价值评估。",
       "source": "./skills/dbs-spread",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "content",
@@ -523,10 +556,10 @@
     },
     {
       "name": "dbs-resonate",
-      "description": "诊断已经写成的稿件哪里没有打中目标受众，结合原句解释共鸣断点并提出具体删改建议；不负责整体流量与商业价值评估，也不以解释已发布内容的传播机制为主要交付。",
+      "description": "诊断已经写成的稿件哪里没有打中目标受众，结合原句解释共鸣断点并提出具体删改建议。适用于稿件修订；不负责整体流量与商业价值评估，也不以解释已发布内容的传播机制为主要交付。",
       "source": "./skills/dbs-resonate",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "draft",
@@ -538,10 +571,10 @@
     },
     {
       "name": "dbs-script-flow",
-      "description": "短视频逐字稿逻辑延续检查。找出「观众会在哪一秒划走」的风险点：段落间逻辑衔接、段落内信息密度、句子口播流畅度。诊断完默认主动问是否标记式改稿。",
+      "description": "检查短视频逐字稿的段落衔接、信息密度和口播流畅度，定位观众可能划走的位置。用户要求检查逻辑延续、文稿顺畅度或流失风险时使用。",
       "source": "./skills/dbs-script-flow",
       "strict": true,
-      "version": "2.18.45",
+      "version": "2.18.46",
       "category": "content-creation",
       "keywords": [
         "script",

@@ -4,15 +4,15 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.45-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.46-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
 **支持：豆包、WorkBuddy、Claude Code、Codex，以及其他支持 Skills 的 Agent。**
 
-dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条公开推文中筛选、结构化出 4,176 个知识原子，并将其中的方法沉淀为 33 个可直接调用的 Skills。
+dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。方法资料包含从 16,152 条公开推文中整理的 4,176 个知识原子；工具箱提供 33 个当前业务 Skill、2 个兼容旧入口和 1 个系统更新入口。
 
-**v2.18.45 更新：** 区分内容表现评估、稿件共鸣诊断、传播机制解读和短视频开头优化的使用范围。
+**本次更新：** 新增视频章节导航，生成完整导航 MP4 和动态进度条；明确视频提取、标题开头与导航制作的分工。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新记录](https://github.com/dontbesilent2025/dbskill/commits/main)
 
@@ -48,8 +48,8 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 
 ```text
 /dbs-diagnosis 我做面向宝妈的收纳咨询，客户总觉得贵。我该调整什么？
-/dbs-content-value 这条内容适合哪些观众？可能带来什么流量和商业价值？
-/dbs-hook 这是我短视频前 20 秒的逐字稿，帮我优化开头：……
+/dbs-content 我想讲“普通人别急着做个人 IP”，这个选题怎样做成内容？
+/dbs-title-cover-intro 这是我准备拍的短视频，帮我配套设计标题、封面和开头：……
 /dbs-benchmark 我想研究企业服务内容账号，应该找哪些对标？
 /dbs-knowledge 帮我把这个文件夹变成知识库，以后我想直接从里面找资料。
 ```
@@ -62,15 +62,12 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 | 找对标并提炼可学习的部分 | `/dbs-benchmark` | 对标筛选与研究框架 |
 | 审查经验判断并找到可信理论依据 | `/dbs-theory-grounding` | 命题修正、理论锚点、案例重释与适用边界 |
 | 先挖掘相关领域、作者和可信理论，再研究历史同构答案 | `/dbs-standard-answer` | 理论锚点、案例矩阵、条件性答案与失效边界 |
-| 选题确定后设计内容表达 | `/dbs-content` | 内容形式与制作方向 |
-| 评估内容受众、流量和商业价值 | `/dbs-content-value` | 整体表现判断与优先修改方向 |
-| 优化短视频开头 | `/dbs-hook` | 开场诊断与多套改写方案 |
-| 为小红书内容生成标题 | `/dbs-xhs-title` | 标题方案与公式说明 |
+| 做选题、内容、标题与短视频 | `/dbs-content`、`/dbs-title-cover-intro` | 内容方向与可发布文案 |
 | 提取短视频数据和语音文字稿 | `/dbs-video-extract` | 作品／账号数据、按作者和标题归档的 Markdown 文字稿 |
+| 制作视频章节、话题或步骤导航 | `/dbs-video-navigation` | 独立导航 MP4、动态进度条、时间表与摆放说明 |
+| 评估整条内容的受众、流量与商业价值 | `/dbs-content-value` | 整体表现判断、证据与优先改善方向 |
 | 发布前检查敏感词、导流、广告与受限内容 | `/dbs-content-risk-check` | 机器审核信号、内容实质问题与最小修改动作 |
-| 修改已写稿件的共鸣问题 | `/dbs-resonate` | 原句级共鸣诊断与删改建议 |
-| 解读已有内容的传播机制 | `/dbs-spread` | 受众情绪、传播动机与讨论方向 |
-| 检查短视频稿件的逻辑延续 | `/dbs-script-flow` | 段落衔接、信息密度与口播流畅度 |
+| 检查文稿共鸣、逻辑与传播性 | `/dbs-resonate`、`/dbs-script-flow`、`/dbs-spread` | 修改意见与优先级 |
 | 澄清概念、目标和问题 | `/dbs-deconstruct`、`/dbs-goal`、`/dbs-good-question` | 可验证的定义与行动目标 |
 | 处理拖延和行动受阻 | `/dbs-action` | 卡点分析与下一步动作 |
 | 记录、复盘长期决策 | `/dbs-decision`、`/dbs-save`、`/dbs-restore`、`/dbs-report` | 本地决策档案与报告 |
@@ -78,7 +75,21 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。从 16,152 条�
 | 建立内容资产与多端 Agent 工作台 | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | 本地工程、主题地图与安装方案 |
 | 把反复问题制作成单个 Skill | `/dbs-skill-maker` | 可安装 Skill、分级验证结果与可选 GitHub 发布仓库 |
 
-完整的 33 个 Skill、适用时机、输入示例和动态导航方式，见 [新手入门与 Skill 全目录](docs/新手入门.md#skill-全目录)。
+当前业务 Skill 的适用时机、输入示例和职责边界，见 [新手入门与 Skill 全目录](docs/新手入门.md#skill-全目录)。
+
+### 标题、封面与开头入口迁移
+
+标题、封面和短视频开头统一使用 `/dbs-title-cover-intro`。它会根据稿件是否完成、视频是否拍摄和能否补录选择工作模式。旧 `/dbs-xhs-title` 和 `/dbs-hook` 标记为 deprecated，保留原内容用于明确调用和效果对照，暂不删除。新 Skill 自带全部运行参考，无需安装知识库或另一个 Skill。
+
+### 视频导航怎么用
+
+```text
+/dbs-video-navigation 给这条本地视频制作章节导航和动态进度条。
+```
+
+提供本地视频或带时间戳的 SRT；仅字幕时还需最终画布、帧率、总时长。输出为可导入剪辑软件的独立黑底 MP4，不会自动剪辑或发布原片。支持按内容使用章节、话题或步骤，Agent 会检查布局与时间对应。需要 Python、FFmpeg/ffprobe 和中文字体；macOS 可用 Swift/AppKit，其他环境用 Pillow 和指定字体。仅视频输入另需可用转写工具，云端转写会事先说明上传服务和范围。已验证中文教学视频，其他类型尚未系统验证。
+
+标题、封面文字和短视频开头统一使用 `/dbs-title-cover-intro`。旧 `/dbs-hook` 和 `/dbs-xhs-title` 仅保留供明确调用和版本对照。
 
 ## 安装
 
@@ -101,7 +112,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-这个 `dbs` 插件包含 33 个正式业务 Skill 和 1 个 `dbs-update` 系统更新入口。Claude Code 会为插件 Skill 添加命名空间：主入口使用 `/dbs:dbs`，具体能力例如 `/dbs:dbs-diagnosis`。
+这个 `dbs` 插件包含 33 个当前业务 Skill、2 个兼容旧入口和 1 个 `dbs-update` 系统更新入口。Claude Code 会为插件 Skill 添加命名空间：主入口使用 `/dbs:dbs`，具体能力例如 `/dbs:dbs-diagnosis`。
 
 只想安装一个能力时，可以在插件市场中选择对应插件，例如 `claude plugin install dbs-diagnosis@dontbesilent-skills`。
 

@@ -66,9 +66,9 @@
   <path class="line" d="M968 520 V557"/>
 
   <rect class="node-accent" x="72" y="566" width="320" height="170" rx="18"/>
-  <text class="condition" x="96" y="600">没有完成／出现新反馈</text>
-  <text class="label" x="96" y="648">回到 /dbs</text>
-  <text class="body" x="96" y="682">带着本轮结论重新编排</text>
+  <text class="condition" x="96" y="600">当前任务未完成</text>
+  <text class="label" x="96" y="648">继续当前 Skill</text>
+  <text class="body" x="96" y="682">结合新反馈继续处理</text>
   <text class="body" x="96" y="708">无需重复描述材料</text>
 
   <rect class="node" x="440" y="566" width="320" height="170" rx="18"/>

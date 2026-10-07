@@ -76,6 +76,11 @@ def prepare(version: str, notice: str) -> None:
         encoding="utf-8",
     )
     readme_path.write_text(readme, encoding="utf-8")
+    for translation in ROOT_DIR.glob("README.*.md"):
+        content = replace_once(translation.read_text(encoding="utf-8"),
+            r"(https://img\.shields\.io/badge/version-)[0-9.]+(-[A-Fa-f0-9]{6}\.svg(?:\?[^)]*)?)",
+            rf"\g<1>{version}\g<2>", translation.name + " Version Badge")
+        translation.write_text(content, encoding="utf-8")
     dbs_skill_path.write_text(dbs_skill, encoding="utf-8")
     update_path.write_text(
         json.dumps(update_manifest, ensure_ascii=False, indent=2) + "\n",

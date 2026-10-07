@@ -31,7 +31,10 @@ jobs:
         run: |
           claude plugin validate .
           python3 tools/check-marketplace-scope.py
+          python3 tools/check-skill-routing-contract.py
+          python3 tools/test-skill-discovery.py
           python3 tools/check-skill-metadata.py
+          python3 tools/check-skill-interface-metadata.py .
           python3 tools/check-numbered-prompts.py .
           python3 tools/test-numbered-prompts.py
 
@@ -51,3 +54,24 @@ jobs:
       - name: Verify Windows Junction install lifecycle
         shell: bash
         run: bash tools/test-dbs-install-skill-windows.sh
+
+  verify-video-navigation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install video and font dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+          python -m pip install pillow
+      - name: Validate navigation and render synthetic videos
+        env:
+          NAV_TEST_FONT_REGULAR: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+          NAV_TEST_FONT_BOLD: /usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc
+        run: |
+          python skills/dbs-video-navigation/scripts/navigation.py doctor
+          python skills/dbs-video-navigation/scripts/test_navigation.py
+          python skills/dbs-video-navigation/scripts/test_navigation.py --render "$RUNNER_TEMP/navigation-smoke"

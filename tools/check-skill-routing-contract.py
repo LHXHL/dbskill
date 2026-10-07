@@ -114,8 +114,8 @@ def main() -> None:
     route_map_text = (ROOT_DIR / "docs" / "skill-link-map.mmd").read_text(
         encoding="utf-8"
     )
-    if "没有完成／有新反馈" not in route_map_text or "回到 /dbs" not in route_map_text:
-        errors.append("docs/skill-link-map.mmd 未体现任务未完成或有新反馈时回到 /dbs")
+    if "当前任务未完成" not in route_map_text or "继续当前 Skill" not in route_map_text:
+        errors.append("docs/skill-link-map.mmd 未体现任务未完成时继续当前 Skill")
 
     route_svg_text = (ROOT_DIR / "docs" / "skill-link-map-4x3.svg").read_text(
         encoding="utf-8"

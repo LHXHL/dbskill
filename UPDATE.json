@@ -1,5 +1,5 @@
 {
-  "version": "2.18.45",
-  "notice": "区分内容流量评估、稿件共鸣诊断、传播机制解读和短视频开头优化入口",
+  "version": "2.18.46",
+  "notice": "新增可直接导入剪辑软件的视频章节导航和动态进度条，并明确视频提取、标题开头与导航制作的分工",
   "details_url": "https://github.com/dontbesilent2025/dbskill/commits/main"
 }
