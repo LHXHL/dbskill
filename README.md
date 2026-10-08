@@ -4,15 +4,15 @@
 
 > 面向创业者与内容创作者的中文 AI Skills 工具箱。把真实业务、内容与行动问题交给 Agent，获得清晰判断和可以立刻执行的下一步。
 
-[![Version](https://img.shields.io/badge/version-2.18.46-2563EB.svg?style=flat-square)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.18.47-2563EB.svg?style=flat-square)](VERSION)
 [![skills.sh](https://skills.sh/b/dontbesilent2025/dbskill)](https://skills.sh/dontbesilent2025/dbskill)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-16A34A.svg?style=flat-square)](LICENSE)
 
 **支持：豆包、WorkBuddy、Claude Code、Codex，以及其他支持 Skills 的 Agent。**
 
-dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。方法资料包含从 16,152 条公开推文中整理的 4,176 个知识原子；工具箱提供 33 个当前业务 Skill、2 个兼容旧入口和 1 个系统更新入口。
+dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。方法资料包含从 16,152 条公开推文中整理的 4,176 个知识原子；工具箱提供 34 个当前业务 Skill、2 个兼容旧入口和 1 个系统更新入口。
 
-**本次更新：** 新增视频章节导航，生成完整导航 MP4 和动态进度条；明确视频提取、标题开头与导航制作的分工。
+**本次更新：** 新增人员任务委派，写清要求、处理反馈并验收成果；缺少飞书工具时提供可转发文字。
 
 [快速开始](#快速开始) · [安装](#安装) · [能力一览](#能力一览) · [公开推文集](#公开推文集) · [完整使用手册](docs/新手入门.md) · [更新记录](https://github.com/dontbesilent2025/dbskill/commits/main)
 
@@ -74,6 +74,7 @@ dbskill 由 [dontbesilent](https://x.com/dontbesilent) 创建。方法资料包�
 | 建立和治理文件夹知识库 | `/dbs-knowledge` | 知识库导航、版本规则、健康检查与 SOT 分层瘦身 |
 | 建立内容资产与多端 Agent 工作台 | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | 本地工程、主题地图与安装方案 |
 | 把反复问题制作成单个 Skill | `/dbs-skill-maker` | 可安装 Skill、分级验证结果与可选 GitHub 发布仓库 |
+| 将任务交给员工并跟进成果 | `/dbs-human-dispatch` | 委派说明、反馈答疑、成果验收与进度汇报 |
 
 当前业务 Skill 的适用时机、输入示例和职责边界，见 [新手入门与 Skill 全目录](docs/新手入门.md#skill-全目录)。
 
@@ -112,7 +113,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-这个 `dbs` 插件包含 33 个当前业务 Skill、2 个兼容旧入口和 1 个 `dbs-update` 系统更新入口。Claude Code 会为插件 Skill 添加命名空间：主入口使用 `/dbs:dbs`，具体能力例如 `/dbs:dbs-diagnosis`。
+这个 `dbs` 插件包含 34 个当前业务 Skill、2 个兼容旧入口和 1 个 `dbs-update` 系统更新入口。Claude Code 会为插件 Skill 添加命名空间：主入口使用 `/dbs:dbs`，具体能力例如 `/dbs:dbs-diagnosis`。
 
 只想安装一个能力时，可以在插件市场中选择对应插件，例如 `claude plugin install dbs-diagnosis@dontbesilent-skills`。
 

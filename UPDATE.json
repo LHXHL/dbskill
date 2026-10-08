@@ -1,5 +1,5 @@
 {
-  "version": "2.18.46",
-  "notice": "新增可直接导入剪辑软件的视频章节导航和动态进度条，并明确视频提取、标题开头与导航制作的分工",
+  "version": "2.18.47",
+  "notice": "新增人员任务委派，写清要求、处理反馈并验收成果；缺少飞书工具时提供可转发文字。",
   "details_url": "https://github.com/dontbesilent2025/dbskill/commits/main"
 }

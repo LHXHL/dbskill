@@ -4,15 +4,15 @@
 
 > A Chinese AI Skills toolkit for entrepreneurs and content creators. Give your Agent a real business, content, or execution problem, and get a clear judgment plus the next action you can take.
 
-[![Version](https://img.shields.io/badge/version-2.18.46-111111.svg)](VERSION)
-[![Skills](https://img.shields.io/badge/Skills-36-111111.svg)](docs/新手入门.md#skill-全目录)
+[![Version](https://img.shields.io/badge/version-2.18.47-111111.svg)](VERSION)
+[![Skills](https://img.shields.io/badge/Skills-37-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
 **Supported in Doubao, WorkBuddy, Claude Code, Codex, and other Agents that support Skills.**
 
-Created by [dontbesilent](https://x.com/dontbesilent), dbskill includes 4,176 knowledge atoms drawn from 16,152 public posts. The toolkit provides 33 current business Skills, 2 legacy entries, and 1 system update entry.
+Created by [dontbesilent](https://x.com/dontbesilent), dbskill includes 4,176 knowledge atoms drawn from 16,152 public posts. The toolkit provides 34 current business Skills, 2 legacy entries, and 1 system update entry.
 
-**This update:** Video chapter navigation produces a full-length navigation MP4 and animated progress bar, with clear boundaries between video extraction, titles and openings, and navigation.
+**This update:** Delegate work to people with clear requirements, handle feedback, and check deliverables. Without Feishu tools, generate text the user can forward.
 
 [Quick start](#quick-start) · [Install](#install) · [Capabilities](#capabilities) · [Full guide](docs/新手入门.md) · [Changes](https://github.com/dontbesilent2025/dbskill/commits/main)
 
@@ -72,6 +72,7 @@ When you already know the task, call a Skill directly:
 | Build content assets and multi-Agent workflows | `/dbs-content-system`, `/dbs-agent-migration`, `/dbs-install-skill` | Local project, topic map, and installation plan |
 | Turn a local folder into a knowledge base | `/dbs-knowledge` | Knowledge navigation, version rules, and ready-to-use prompts |
 | Turn a recurring task into a Skill | `/dbs-skill-maker` | Installable Skill, validation results, and optional publishing preparation |
+| Delegate work and follow up with people | `/dbs-human-dispatch` | Task briefs, feedback, acceptance checks, and progress reports |
 
 See the [full guide and Skill directory](docs/新手入门.md#skill-全目录) for current capabilities, examples, and boundaries.
 
@@ -106,7 +107,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-The `dbs` plugin includes 33 current business Skills, 2 legacy entries, and the `dbs-update` system entry. Claude Code namespaces plugin Skills: use `/dbs:dbs` for the main entry and `/dbs:dbs-diagnosis` for a specific capability.
+The `dbs` plugin includes 34 current business Skills, 2 legacy entries, and the `dbs-update` system entry. Claude Code namespaces plugin Skills: use `/dbs:dbs` for the main entry and `/dbs:dbs-diagnosis` for a specific capability.
 
 To install only one capability, choose its marketplace plugin, for example `claude plugin install dbs-diagnosis@dontbesilent-skills`.
 

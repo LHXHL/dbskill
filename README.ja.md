@@ -4,15 +4,15 @@
 
 > 起業家とコンテンツ制作者のための中国語 AI Skills ツールキット。ビジネス、コンテンツ、実行に関する現実の課題を Agent に渡し、明確な判断と次の具体的な行動を得られます。
 
-[![Version](https://img.shields.io/badge/version-2.18.46-111111.svg)](VERSION)
-[![Skills](https://img.shields.io/badge/Skills-36-111111.svg)](docs/新手入门.md#skill-全目录)
+[![Version](https://img.shields.io/badge/version-2.18.47-111111.svg)](VERSION)
+[![Skills](https://img.shields.io/badge/Skills-37-111111.svg)](docs/新手入门.md#skill-全目录)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-111111.svg)](LICENSE)
 
 **豆包、WorkBuddy、Claude Code、Codex、および Skills に対応する他の Agent で利用できます。**
 
-dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。公開投稿 16,152 件から整理した 4,176 件の知識原子を含み、現行の業務 Skill 33 個、旧版互換エントリ 2 個、更新エントリ 1 個を提供します。
+dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。公開投稿 16,152 件から整理した 4,176 件の知識原子を含み、現行の業務 Skill 34 個、旧版互換エントリ 2 個、更新エントリ 1 個を提供します。
 
-**今回の更新：** 動画のチャプターナビゲーションと進捗バーを含む MP4 を生成できます。動画データ抽出、タイトル・冒頭作成、ナビゲーション制作の役割も明確にしました。
+**今回の更新：** 担当者への依頼内容を明確にし、質問への回答と成果確認を支援します。飛書ツールがなくても転送用の文章を作成できます。
 
 [クイックスタート](#クイックスタート) · [インストール](#インストール) · [機能](#機能一覧) · [完全ガイド](docs/新手入门.md) · [変更履歴](https://github.com/dontbesilent2025/dbskill/commits/main)
 
@@ -72,6 +72,7 @@ dbskill は [dontbesilent](https://x.com/dontbesilent) が作成しました。�
 | コンテンツ資産と複数 Agent の環境を構築する | `/dbs-content-system`、`/dbs-agent-migration`、`/dbs-install-skill` | ローカルプロジェクトとインストール計画 |
 | ローカルフォルダをナレッジベースにする | `/dbs-knowledge` | ナビゲーション、バージョン規則、すぐ使える質問例 |
 | 繰り返す作業を Skill にする | `/dbs-skill-maker` | インストール可能な Skill、検証結果、任意の公開準備 |
+| 担当者に仕事を依頼して成果を確認 | `/dbs-human-dispatch` | 依頼文、質問への回答、成果確認、進捗報告 |
 
 現在の機能、入力例、役割の違いは [完全ガイドと Skill 一覧](docs/新手入门.md#skill-全目录) を参照してください。
 
@@ -106,7 +107,7 @@ claude plugin marketplace add dontbesilent2025/dbskill
 claude plugin install dbs@dontbesilent-skills
 ```
 
-`dbs` プラグインには現行の業務 Skill 33 個、旧版互換エントリ 2 個、更新用の `dbs-update` が含まれます。Claude Code ではメイン入口に `/dbs:dbs`、個別機能に `/dbs:dbs-diagnosis` などを使用します。
+`dbs` プラグインには現行の業務 Skill 34 個、旧版互換エントリ 2 個、更新用の `dbs-update` が含まれます。Claude Code ではメイン入口に `/dbs:dbs`、個別機能に `/dbs:dbs-diagnosis` などを使用します。
 
 機能を 1 つだけインストールする場合は、対応するプラグインを選択します。例：`claude plugin install dbs-diagnosis@dontbesilent-skills`
 

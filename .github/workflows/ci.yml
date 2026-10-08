@@ -37,6 +37,7 @@ jobs:
           python3 tools/check-skill-interface-metadata.py .
           python3 tools/check-numbered-prompts.py .
           python3 tools/test-numbered-prompts.py
+          python3 skills/dbs-human-dispatch/scripts/test_dispatch.py
 
       - name: Verify release version and update contract
         run: |
